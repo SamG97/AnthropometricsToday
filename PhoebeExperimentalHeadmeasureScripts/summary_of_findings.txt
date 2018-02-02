@@ -20,4 +20,14 @@ Disadvantages of face_recognition:
 My suggestion:
 Use face_recognition to get occular width, and face width. Give up
 on using a neural net to get the profile measurement, and use thresholding if
-this measurement is needed. Perhaps it is not needed.
+this measurement is needed. Perhaps it is not needed. I have implemented
+functions to get occular width, and face width, and the profile measurement in
+getHeadMeasurements.py
+
+
+Other notes:
+We should come up with a good name for the profile length head measurement. It's
+confusing at the moment.
+
+
+

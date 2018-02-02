@@ -8,14 +8,12 @@ cmPerPixel = 0.0458
 base_location = "/Users/phoebenichols/AnthropometricsToday/" \
                 "PhoebeExperimentalHeadmeasureScripts/images/"
 
-
 def saveThresholdImage(imagepath):
     binary = getThresholdImage(imagepath)
     print(imagepath)
     location = 'output/thresholding/' + imagepath[
                                         len(base_location):]
     imsave(location, img_as_uint(binary))
-
 
 def getThresholdImage(imagepath):
     color_input = data.load(imagepath)
@@ -47,3 +45,7 @@ def getHeadLength(imagepath):
 print(getHeadLength("/Users/phoebenichols/AnthropometricsToday/"
               "PhoebeExperimentalHeadmeasureScripts/"
               "images/phoebe_profile_centered.jpg"))
+
+saveThresholdImage("/Users/phoebenichols/AnthropometricsToday/"
+              "PhoebeExperimentalHeadmeasureScripts/"
+              "images/phoebe_profile_centered.jpg")
