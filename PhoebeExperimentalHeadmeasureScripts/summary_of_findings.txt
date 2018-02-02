@@ -1,7 +1,8 @@
 We can use the python libraries cv2 or face_recognition
 
 Advantages of face_recognition:
-    Can get ocular width easily
+    Can get ocular width easily and very accurately
+    Can get face width easily and very accurately
     Easy to install
 
 Advantages of cv2:
@@ -17,6 +18,6 @@ Disadvantages of face_recognition:
 
 
 My suggestion:
-Use face_recognition to get occular width, face width, and face height. Give up
+Use face_recognition to get occular width, and face width. Give up
 on using a neural net to get the profile measurement, and use thresholding if
 this measurement is needed. Perhaps it is not needed.

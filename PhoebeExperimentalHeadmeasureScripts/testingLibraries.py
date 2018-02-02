@@ -1,6 +1,7 @@
 import numpy as np
 import face_recognition
 import cv2
+from PIL import Image, ImageDraw
 
 all_faces = ["images/phoebe_face_noglasses.jpg",
               "images/phoebe_face_glasses.jpg"]
@@ -13,23 +14,38 @@ all_profiles = ["images/phoebe_profile_right.jpg",
 base_location = "images/"
 
 def test_face_recognition(imagepath):
-    print("Testing face_recognition module")
+    print("Testing face_recognition package")
 
     image = face_recognition \
         .load_image_file(imagepath)
 
     face_landmarks_list = face_recognition.face_landmarks(image)
-    if (len(face_landmarks_list) == 0):
+    if len(face_landmarks_list) == 0:
         print("No face detected")
+        return
 
-    print("Face detected")
+    print(str(len(face_landmarks_list)) + ' faces detected')
 
-    print(len(face_landmarks_list))
-    print("Can classify on :")
-    print(face_landmarks_list[0].keys())
+    # print(len(face_landmarks_list))
+    # print("Can classify on :")
+    # print(face_landmarks_list[0].keys())
+    #
+    # print("For the right eye, the given data is:")
+    # print(face_landmarks_list[0].get('right_eye'))
 
-    print("For the right eye, the given data is:")
-    print(face_landmarks_list[0].get('right_eye'))
+    im = Image.open(imagepath)
+    draw = ImageDraw.Draw(im)
+
+    for face in face_landmarks_list:
+        for landmark in face:
+            points = face.get(landmark)
+            for coord in points:
+                draw.point(coord)
+    del draw
+    location = 'output/face_recognition_package/'+imagepath[len(base_location):]
+    im.save(location, "JPEG")
+
+
 
 def test_opencv_faces(imagepath):
     face_cascade = cv2.CascadeClassifier('openCVCascades/haarcascade_frontalface_default.xml')
@@ -68,16 +84,18 @@ def test_opencv_profiles(imagepath):
     cv2.imwrite(location, img)
 
 
-# test_face_recognition()
 for face in all_faces:
-    test_opencv_faces(face)
+    test_face_recognition(face)
 
-for profile in all_profiles:
-    test_opencv_profiles(profile)
+# for face in all_faces:
+#     test_opencv_faces(face)
+#
+# for profile in all_profiles:
+#     #test_opencv_faces(profile)
 
 # Notes:
 #
-# face_recognition easily installed using pip3 install face_recognition
+# face_recognition_package easily installed using pip3 install face_recognition_package
 #
 # cv2 installed using pip3 install opencv-python
 # but may rely on having an opencv installation already
