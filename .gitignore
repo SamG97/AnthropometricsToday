@@ -1,0 +1,23 @@
+# IntelliJ
+.idea/workspace.xml
+.idea/tasks.xml
+
+# dependencies
+/front-end/anthropometrics-today/node_modules
+
+# testing
+/front-end/anthropometrics-today/coverage
+
+# production
+/front-end/anthropometrics-today/build
+
+# misc
+/front-end/anthropometrics-today/.DS_Store
+/front-end/anthropometrics-today/.env.local
+/front-end/anthropometrics-today/.env.development.local
+/front-end/anthropometrics-today/.env.test.local
+/front-end/anthropometrics-today/.env.production.local
+
+/front-end/anthropometrics-today/npm-debug.log*
+/front-end/anthropometrics-today/yarn-debug.log*
+/front-end/anthropometrics-today/yarn-error.log*
