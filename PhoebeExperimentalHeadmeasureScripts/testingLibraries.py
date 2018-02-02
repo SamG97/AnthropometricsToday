@@ -22,6 +22,8 @@ def test_face_recognition(imagepath):
     if (len(face_landmarks_list) == 0):
         print("No face detected")
 
+    print("Face detected")
+
     print(len(face_landmarks_list))
     print("Can classify on :")
     print(face_landmarks_list[0].keys())
@@ -40,6 +42,7 @@ def test_opencv_faces(imagepath):
     if faces == ():
             print("No face detected")
             return
+    print("Face detected")
     print(faces[0])
     for (x, y, w, h) in faces:
         img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
@@ -70,7 +73,7 @@ for face in all_faces:
     test_opencv_faces(face)
 
 for profile in all_profiles:
-    test_opencv_faces(profile)
+    test_opencv_profiles(profile)
 
 # Notes:
 #
