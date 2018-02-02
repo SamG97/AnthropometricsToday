@@ -2,13 +2,15 @@ import numpy as np
 import face_recognition
 import cv2
 
-imagePath = "images/Photo on 02-02-2018 at 18.38.jpg"
+phoebe_face = "images/phoebe_face_noglasses.jpg"
+phoebe_profile = "images/phoebe_profile_right.jpg"
+rando_profile = "images/rando_profileface_left.jpg"
 
 def test_face_recognition():
     print("Testing face_recognition module")
 
     image = face_recognition \
-        .load_image_file(imagePath)
+        .load_image_file(phoebe_face)
 
     face_landmarks_list = face_recognition.face_landmarks(image)
 
@@ -20,37 +22,36 @@ def test_face_recognition():
     print(face_landmarks_list[0].get('right_eye'))
 
 
-def test_opencv():
-    
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-    eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+def test_opencv_faces():
 
-    img = cv2.imread('sachin.jpg')
+    face_cascade = cv2.CascadeClassifier('openCVCascades/haarcascade_frontalface_default.xml')
+
+    img = cv2.imread(phoebe_face)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    print(faces[0])
+    for (x, y, w, h) in faces:
+        img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
+    cv2.imwrite('output/opencv_for_facewidth.jpg', img)
 
-    print("Testing opencv")
-    image = cv2.imread(imagePath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    faceCascade = cv2.CascadeClassifier('openCVCascades/haarcascade_frontalface_default.xml')
+def test_opencv_profiles():
+    profile_cascade = cv2.CascadeClassifier(
+        'openCVCascades/haarcascade_profileface.xml')
 
-    faces = faceCascade.detectMultiScale(
-        gray,
-        scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(30, 30),
-        flags=cv2.CASCADE_SCALE_IMAGE
-    )
+    img = cv2.imread(rando_profile)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    profiles = profile_cascade.detectMultiScale(gray, 1.3, 5)
+    print(profiles[0])
+    for (x, y, w, h) in profiles:
+        img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-
-
-
+    cv2.imwrite('output/opencv_for_profiles.jpg', img)
 
 
 # test_face_recognition()
-test_opencv()
-
-
+# test_opencv_faces()
+test_opencv_profiles()
 
 # Notes:
 #
@@ -58,6 +59,7 @@ test_opencv()
 #
 # cv2 installed using pip3 install opencv-python
 # but may rely on having an opencv installation already
+# and openCV is genreally a massive pain in the ass
 
 
 
