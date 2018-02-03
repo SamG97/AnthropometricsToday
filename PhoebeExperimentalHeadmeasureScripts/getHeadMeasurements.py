@@ -1,4 +1,5 @@
 # Phoebe's suggested functions to get head measurements
+
 import face_recognition
 import numpy
 from skimage import data, color
@@ -6,9 +7,10 @@ from skimage.filters import threshold_mean
 
 cmPerPixel = 0.0458
 
-def getOcularWidth(imagepath):
+
+def getOcularWidth(image_path):
     image = face_recognition \
-        .load_image_file(imagepath)
+        .load_image_file(image_path)
 
     face_landmarks_list = face_recognition.face_landmarks(image)
 
@@ -23,17 +25,17 @@ def getOcularWidth(imagepath):
         right_eye_points = face.get('right_eye')
         left_eye_points = face.get('left_eye')
 
-        left_avg = get_average_xval(left_eye_points)
-        right_avg = get_average_xval(right_eye_points)
+        left_avg = get_average_x(left_eye_points)
+        right_avg = get_average_x(right_eye_points)
 
         ocularWidthOfAllFacesPresent += [(right_avg - left_avg) * cmPerPixel]
 
     return max(ocularWidthOfAllFacesPresent)
 
 
-def getFaceWidth(imagepath):
+def getFaceWidth(image_path):
     image = face_recognition \
-        .load_image_file(imagepath)
+        .load_image_file(image_path)
 
     face_landmarks_list = face_recognition.face_landmarks(image)
 
@@ -54,8 +56,8 @@ def getFaceWidth(imagepath):
     return max(widthOfAllFacesPresent)
 
 
-def getHeadLength(imagepath):
-    binary = getThresholdImage(imagepath)
+def getHeadLength(image_path):
+    binary = getThresholdImage(image_path)
     mid_point = len(binary) // 2
     row = binary[mid_point]
 
@@ -72,20 +74,19 @@ def getHeadLength(imagepath):
 
     return most_consecutive_falses * cmPerPixel
 
-
-def getThresholdImage(imagepath):
-    color_input = data.load(imagepath)
+def getThresholdImage(image_path):
+    color_input = data.load(image_path)
     image = color.rgb2grey(color_input)
     thresh = threshold_mean(image)
     binary = image > thresh
     return binary
 
-def get_average_xval(points):
-    averagex = 0.0
+def get_average_x(points):
+    average_x = 0.0
     for (x, y) in points:
-        averagex += x
-    averagex = averagex / len(points)
-    return averagex
+        average_x += x
+    average_x = average_x / len(points)
+    return average_x
 
 print("ocular width measured as")
 print(getOcularWidth("images/phoebe_face_glasses.jpg"))

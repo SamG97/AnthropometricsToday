@@ -1,4 +1,3 @@
-import numpy as np
 import face_recognition
 import cv2
 from PIL import Image, ImageDraw
@@ -85,16 +84,16 @@ def test_opencv_profiles(imagepath):
 for face in all_faces:
     test_face_recognition(face)
 
-# for face in all_faces:
-#     test_opencv_faces(face)
-#
-# for profile in all_profiles:
-#     #test_opencv_faces(profile)
+for face in all_faces:
+    test_opencv_faces(face)
+
+for profile in all_profiles:
+    test_opencv_profiles(profile)
 
 # Notes:
 #
-# face_recognition_package easily installed using pip3 install face_recognition_package
+# face_recognition_package easily installed
+# using pip3 install face_recognition_package
 #
 # cv2 installed using pip3 install opencv-python
-# but may rely on having an opencv installation already
-# and openCV is genreally a massive pain in the ass
+# but openCV is generally a massive pain in the ass
