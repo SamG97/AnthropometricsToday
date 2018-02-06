@@ -1,4 +1,5 @@
 import React from 'react';
+import Webcam from 'react-webcam';
 
 export default class Camera extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class Camera extends React.Component {
         return (
             <div>
                 This is a camera
+                <p><Webcam/></p>;
             </div>
         );
     }
