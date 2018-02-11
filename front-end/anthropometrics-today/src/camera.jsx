@@ -5,16 +5,36 @@ export default class Camera extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // Initialise state here; if no state is needed convert to functional component like Report
+            screenshot: null
         };
     }
 
+    setRef = (webcam) => {
+        this.webcam = webcam;
+    }
+
+    capture = () => {
+        const screenshot = this.webcam.getScreenshot();
+        this.setState({ screenshot });
+    };
+
     render() {
-        // TODO: Replace with actual camera implementation
         return (
             <div>
-                This is a camera
-                <p><Webcam/></p>;
+                <h1>CAMERA</h1>
+                <Webcam
+                    audio={false}
+                    width = '320'
+                    height = '240'
+                    ref={node => this.webcam = node}
+                />
+                <h2>YOUR SCREENSHOT</h2>
+                <div className='screenshots'>
+                    <div className='controls'>
+                        <button onClick={this.capture}>capture</button>
+                    </div>
+                    {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
+                </div>
             </div>
         );
     }
