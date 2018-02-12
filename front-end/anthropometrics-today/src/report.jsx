@@ -1,5 +1,5 @@
 import React from 'react';
-import makeRequest from './makeRequest';
+import { getHistoricData } from './requests/requestWrappers';
 
 export default class Report extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class Report extends React.Component {
     };
 
     componentDidMount() {
-        makeRequest(this.requestCompleted)
+        getHistoricData(this.state.twin, this.requestCompleted)
     }
 
     render() {

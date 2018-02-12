@@ -1,7 +1,8 @@
 const config = {
+    // TODO: Replace with real URLs
     baseUrl: 'https://jsonplaceholder.typicode.com',
-    getSuffix: '/posts/1',
-    postSuffix: '/posts',
+    historicSuffix: '/posts',
+    analysisSuffix: '/posts',
 };
 
 export default config;

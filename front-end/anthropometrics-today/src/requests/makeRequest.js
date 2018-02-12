@@ -1,12 +1,11 @@
 import 'whatwg-fetch';
-import config from './config';
 
-const makeRequest = (callback, body) => {
+const makeRequest = (url, callback, errCallback, body) => {
     let promise;
     if (!body) {
-        promise = fetch(config.baseUrl + config.getSuffix);
+        promise = fetch(url);
     } else {
-        promise = fetch(config.baseUrl + config.postSuffix, {
+        promise = fetch(url, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -17,12 +16,12 @@ const makeRequest = (callback, body) => {
     }
     promise.then((response) => {
         if (response.status !== 200) {
-            console.log('Error contacting server. Error code: ' + response.status);
+            errCallback('Error Code: ' + response.status);
             return;
         }
 
         response.json().then((data) => callback(data));
-    }).catch((error) => console.log('Request failed with error: ' + error));
+    }).catch((error) => errCallback(error));
 };
 
 export default makeRequest;
