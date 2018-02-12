@@ -1,0 +1,4 @@
+Name,College,Birthplace1,Birthplace2,DB_month,DB_day,DB_year,Origin1,Origin2,Age (informal),DM_month,DM_day,DM_year,Initials,Eyes,Eye_right,Eye_left,Pull_archer,Squeeze_right,Squeeze_left,Breathing,Head (annotation in box),Head_sides,Head_fback,Head_brow,Height_feet,Height_inches,Height_tenths,Heel_inches,Heel_tenths,True_feet,True_inches,True_tenths,Weight_stone,Weight_lbs,Weight_oz (rare),Span_ft (annotated),Span_in,Span_tenths
+E.X. Data1,Clare,Isleworth,Middlesex,1,15,66,Father Denbigh Wales,Mother Chepstow Monmouthshire,21,1,19,87,,3,31,33,70,77,78,255,76,5.7,7.5,5.2,5,11,,1,,5,10,,10,9.5,,149,6,1.2
+E.X. Data2,Caius,London,,9,12,62,Wales,,24,1,19,87,,3,,19,89,89,87,255,87,6,6.9,5,5,9,6,,9,5,8,7,10,5.75,,,6,0.3
+E.X. Data3,Christ's,Hull ,Yorkshire,11,29,66,Yorkshire,Lincolnshire,20,8,5,87,,2,31,33,91,100,79,285,75.3,5.8,7.7,5,5,10,9,1,1,5,9,8,11,6.25,,160,6,
