@@ -49,5 +49,5 @@ print(getHeadLength("/Users/phoebenichols/AnthropometricsToday/"
                     "images/phoebe_profile_centered.jpg"))
 
 saveThresholdImage("/Users/phoebenichols/AnthropometricsToday/"
-                   "PhoebeExperimentalHeadmeasureScripts/"
-                   "images/xanthehead.jpg")
+                    "PhoebeExperimentalHeadmeasureScripts/"
+                    "images/phoebe_profile_centered.jpg")
