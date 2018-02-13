@@ -88,13 +88,4 @@ def get_average_x(points):
     average_x = average_x / len(points)
     return average_x
 
-print("ocular width measured as")
-print(getOcularWidth("images/phoebe_face_glasses.jpg"))
 
-print("face width measured as")
-print(getFaceWidth("images/phoebe_face_glasses.jpg"))
-
-print("head length measured as")
-print(getHeadLength("/Users/phoebenichols/AnthropometricsToday/"
-                    "PhoebeExperimentalHeadmeasureScripts/"
-                    "images/phoebe_face_glasses.jpg"))

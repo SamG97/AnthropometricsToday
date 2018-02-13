@@ -86,6 +86,7 @@ for face in all_faces:
 
 for face in all_faces:
     test_opencv_faces(face)
+    test_opencv_profiles(face)
 
 for profile in all_profiles:
     test_opencv_profiles(profile)
