@@ -14,8 +14,9 @@ export default class Camera extends React.Component {
     }
 
     capture = () => {
-        const screenshot = this.webcam.getScreenshot();
-        this.setState({ screenshot });
+        const image = this.webcam.getScreenshot();
+        this.setState({ 
+            screenshot: image });
     };
 
     render() {
@@ -29,8 +30,8 @@ export default class Camera extends React.Component {
                     ref={node => this.webcam = node}
                 />
                 <h2>YOUR SCREENSHOT</h2>
-                <div className='screenshots'>
-                    <div className='controls'>
+                <div className='screenshot'>
+                    <div className='capture'>
                         <button onClick={this.capture}>capture</button>
                     </div>
                     {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
