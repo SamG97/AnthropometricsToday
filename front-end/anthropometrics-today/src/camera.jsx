@@ -1,6 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
-import { history, analyseImage } from './requests/requestWrappers';
+import { analyseImage } from './requests/requestWrappers';
 
 export default class Camera extends React.Component {
     constructor(props) {
@@ -18,20 +18,32 @@ export default class Camera extends React.Component {
     capture = () => {
         const image = this.webcam.getScreenshot();
         this.setState({
-            analysing: true,
-            screenshot: image 
+            screenshot: image,
         });
+    }
 
+    analyse = () => {
+        this.setState({
+            analysing: true,
+        });
         analyseImage(this.requestCompleted, this.state.screenshot);
     }
 
     requestCompleted = () => {
         this.setState({
-            isLoading: false,
+            analysing: false,
         });
     }
 
     render() {
+        if (this.state.analysing) {
+            return (
+                <h1>
+                    Analysing Photo.
+                </h1>
+            );
+        }
+
         return (
             <div>
                 <h1>CAMERA</h1>
@@ -47,6 +59,9 @@ export default class Camera extends React.Component {
                         <button onClick={this.capture}>capture</button>
                     </div>
                     {this.state.screenshot ? <img src={this.state.screenshot} /> : null}
+                    <div className='analyse'>
+                        <button onClick={this.analyse}>get result</button>
+                    </div>
                 </div>
             </div>
         );
