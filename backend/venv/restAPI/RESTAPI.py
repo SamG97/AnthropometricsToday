@@ -8,7 +8,7 @@ api = Api(app)
 
 class Student(Resource):
     def get(self, student_id):
-        #todo: hock up database so that it actually returns correct jason object
+        #todo: hook up database so that it actually returns correct jason object
         return {'id': student_id}
 
 def nearestNeigbour(image):
