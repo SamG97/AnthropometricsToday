@@ -1,6 +1,7 @@
 import psycopg2
+import heapq
 
-
+#TBD: deal with the people with null data that vanished during the sql query below
 #Assume we are going to setup a local database, given that enough space occur in the Rasperry PI
 conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password=''")
 cur = conn.cursor()
@@ -32,15 +33,42 @@ columnnamesold = cur.fetchall()
 # Head_sides @ 22
 # Head_fback @ 23
 
+
+cur.execute("""
+SELECT *
+FROM students_pre_1897
+""")
+oldtablesize = cur.rowcount
+
+cur.execute("""
+SELECT *
+FROM students_post_1897
+""")
+newtablesize = cur.rowcount
+
 #Return object
 class ReturnObjects:
     def set(self,data):
         self.data = data
-        
 
-# Given headlength,headbreadth, headheight, interocular breadth, and facewidth in cm, find the cloest match.
+class LimitedSizeHeap:
+    #All the value are ranked by its minus number, so this becomes a fake-max heap wit twisting
+
+    def push(self,thing):
+        if len(self.heap)<20:
+            heapq.heappush(self.heap, thing)
+        else:
+            heapq.heappush(self.heap, thing)
+            heapq.heappop(self.heap)
+
+    def pop(self):
+        return heapq.heappop(self.heap)
+    def __init__(self):
+        self.heap = []
+
+# Given headlength,headbreadth, headheight, interocular breadth, and facewidth in cm, find the cloest match set(maximum of 20).
 # (if there is more than one, then it will choose the one that it first find)
-# A null parameter can be replaced by negative numbers,
+# A null parameter can be replaced by negative numbers or 0,
 # where it would not be searched.
 # If all three parameters are empty, then it will retrun None.
 # The default return type is a new instance of the above class, with data being the list of tuples (column name, value).
@@ -66,7 +94,7 @@ WHERE TRUE """
                string1 = string1 + str((headlength-delta)/2.54)
            cur.execute(string1)
            oldrows = cur.fetchall()
-           if (len(oldrows)>0):
+           if (len(oldrows)>20 or len(oldrows)==oldtablesize or delta>1073741824-1):
                break
            else:
                delta = delta*2
@@ -105,41 +133,40 @@ WHERE TRUE """
             string1 = string1 + str((facewidth-delta)*10)
         cur.execute(string1)
         newrows = cur.fetchall()
-        if (len(newrows)>0):
+        if (len(newrows)>20 or len(newrows)==newtablesize or delta>1073741824-1):
             break
         else:
             delta = delta*2
-    sdold = 9999999
-    oldindex = -1
-    newindex = -1
-    sdnew = 9999999
+    indexlist = LimitedSizeHeap()
     if (headlength>0 or headbreadth>0):
         for i in range(0,len(oldrows)):
             currentsd = ((oldrows[i][22]-headbreadth)**2+(oldrows[i][23]-headlength)**2)**0.5
-            if currentsd<sdold:
-                sdold = currentsd
-                oldindex = i
+            tuple1 = (-currentsd, i, 'old')
+            indexlist.push(tuple1)
     for i in range(0,len(newrows)):
         currentsd = ((newrows[i][18]-headlength)**2+(newrows[i][19]-headbreadth)**2+(newrows[i][20]-headheight)**2+(newrows[i][27]-interocular)**2+(newrows[i][26]-facewidth)**2)**0.5
-        if currentsd<sdnew:
-            sdnew = currentsd
-            newindex = i
-    if sdnew<sdold:
-        result = ReturnObjects()
-        k = []
-        for i in range(0,len(columnnamesnew)):
-            tup1 = (columnnamesnew[i][0],newrows[newindex][i])
-            k.append(tup1)
-        result.set(k)
-        return result
-    else:
-        result = ReturnObjects()
-        k = []
-        for i in range(0,len(columnnamesold)):
-            tup2 = (columnnamesold[i][0],oldrows[oldindex][i])
-            k.append(tup2)
-        result.set(k)
-        return result
+        tuple1 = (-currentsd, i, 'new')
+        indexlist.push(tuple1)
+
+    tobeadd = []
+    while (len(indexlist.heap)>0):
+        k = indexlist.pop()
+        if (k[2]=='new'):
+            row = []
+            rowdata = newrows[k[1]]
+            for i in range(0, len(rowdata)):
+                row.append((columnnamesnew[i][0],rowdata[i]))
+            tobeadd.append(row)
+        else:
+            row = []
+            rowdata = oldrows[k[1]]
+            for i in range(0, len(rowdata)):
+                row.append((columnnamesold[i][0], rowdata[i]))
+            tobeadd.append(row)
+    result = ReturnObjects()
+    tobeadd.reverse() #reverse the list
+    result.set(tobeadd)
+    return result
 
 
 #unit test: emitted if not needed
