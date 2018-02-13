@@ -1,6 +1,6 @@
 import { createBrowserHistory } from 'history';
 import makeRequest from './makeRequest';
-import config from '../config';
+import config from '../utility/config';
 
 const history = createBrowserHistory();
 

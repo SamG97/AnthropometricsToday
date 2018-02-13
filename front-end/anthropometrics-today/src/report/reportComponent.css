@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Satisfy');
+
+.container {
+    display: flex;
+}
+
+.field-name {
+    font-family: 'Arial', monospace;
+}
+
+.value {
+    font-family: 'Satisfy', cursive;
+}
