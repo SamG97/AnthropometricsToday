@@ -38,14 +38,14 @@ class ReturnObjects:
         self.data = data
         
 
-# Given headlength,headbreadth, headheight and interocular breadth in cm, find the cloest match.
+# Given headlength,headbreadth, headheight, interocular breadth, and facewidth in cm, find the cloest match.
 # (if there is more than one, then it will choose the one that it first find)
 # A null parameter can be replaced by negative numbers,
 # where it would not be searched.
 # If all three parameters are empty, then it will retrun None.
 # The default return type is a new instance of the above class, with data being the list of tuples (column name, value).
-def getClosestRecord(headlength, headbreadth, headheight, interocular):
-    if (headlength<0 and headbreadth<0 and headheight<0 and interocular<0):
+def getClosestRecord(headlength, headbreadth, headheight, interocular, facewidth):
+    if (headlength<0 and headbreadth<0 and headheight<0 and interocular<0 and facewidth):
         return None
     delta = 1
     if (headlength>0 or headbreadth>0):
@@ -98,6 +98,11 @@ WHERE TRUE """
             string1 = string1 + str((interocular+delta)*10)
             string1 = string1 + """ AND "Face_iobreadth" > """
             string1 = string1 + str((interocular-delta)*10)
+        if (facewidth<0):
+            string1 = string1 + """ AND "Face_breadth" < """
+            string1 = string1 + str((facewidth+delta)*10)
+            string1 = string1 + """ AND "Face_breadth" > """
+            string1 = string1 + str((facewidth-delta)*10)
         cur.execute(string1)
         newrows = cur.fetchall()
         if (len(newrows)>0):
@@ -115,7 +120,7 @@ WHERE TRUE """
                 sdold = currentsd
                 oldindex = i
     for i in range(0,len(newrows)):
-        currentsd = ((newrows[i][18]-headlength)**2+(newrows[i][19]-headbreadth)**2+(newrows[i][20]-headheight)**2+(newrows[i][27]-interocular)**2)**0.5
+        currentsd = ((newrows[i][18]-headlength)**2+(newrows[i][19]-headbreadth)**2+(newrows[i][20]-headheight)**2+(newrows[i][27]-interocular)**2+(newrows[i][26]-facewidth)**2)**0.5
         if currentsd<sdnew:
             sdnew = currentsd
             newindex = i
@@ -137,7 +142,7 @@ WHERE TRUE """
         return result
 
     
-k=getClosestRecord(21.3,16.5,25.5,2.8)
+k=getClosestRecord(21.3,16.5,25.5,2.8,16)
 print(k.data)
 
 
