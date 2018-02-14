@@ -48,8 +48,11 @@ newtablesize = cur.rowcount
 
 #Return object
 class ReturnObjects:
-    def set(self,data):
+    def set(self, data):
         self.data = data
+    #Get the numberth person's data out
+    def get(self, number):
+        return self.data[number]
 
 class LimitedSizeHeap:
     #All the value are ranked by its minus number, so this becomes a fake-max heap wit twisting
@@ -168,7 +171,47 @@ WHERE TRUE """
     result.set(tobeadd)
     return result
 
+#Get one person's data given a person's id (an primary key(integer) used in the database)
+#If fromwhere = 'old', then it will get the person from pre 1897 database
+#If fromwhere = 'new', then it will get the person from post 1897 database
+#Otherwise return nothing back
+def getPersonDataById(id,fromwhere):
+    if (fromwhere != 'new' and fromwhere != 'old'):
+        return None
+    else:
+        if (fromwhere == 'new'):
+            string1 = """
+SELECT *
+FROM students_post_1897
+WHERE id = """
+            string1 = string1 + str(id)
+            cur.execute(string1)
+            data = cur.fetchall()
+            row = []
+            for i in range(0, len(columnnamesnew)):
+                row.append((columnnamesnew[i][0], data[0][i]))
+            return row
+        else:
+            string1 = """
+SELECT *
+FROM students_pre_1897
+WHERE id = """
+            string1 = string1 + str(id)
+            cur.execute(string1)
+            data = cur.fetchall()
+            row = []
+            for i in range(0, len(columnnamesold)):
+                row.append((columnnamesold[i][0], data[0][i]))
+            return row
+
 
 #unit test: emitted if not needed
 #k=getClosestRecord(21.3,16.5,25.5,2.8,16)
 #print(k.data)
+#print(k.get(1))
+#print(getPersonDataById(1,'new'))
+#print(getPersonDataById(2,'new'))
+#print(getPersonDataById(3,'new'))
+#print(getPersonDataById(1,'old'))
+#print(getPersonDataById(2,'old'))
+#print(getPersonDataById(3,'old'))
