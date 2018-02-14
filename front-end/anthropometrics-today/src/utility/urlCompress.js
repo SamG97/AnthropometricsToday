@@ -17,12 +17,12 @@ const uncompress = (compressed) => {
         return null; // Invalid string
     }
     let cursor = 0;
-    const measurements = [];
+    const measurements = [replace(parts[0], '_', ' ')];
     while (cursor < parts[1].length) {
         measurements.push(b64ToDecimal(parts[1].substring(cursor, cursor + measurementLength)) / multiplier);
         cursor += measurementLength;
     }
-    return { name: replace(parts[0], '_', ' '), measurements: measurements };
+    return measurements;
 };
 
 const decimalToB64 = (n) => {

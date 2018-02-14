@@ -4,7 +4,7 @@ const config = {
     historicSuffix: '/posts',
     analysisSuffix: '/posts',
 
-    fieldOrdering: ['id']
+    fieldOrdering: ['name', 'id', 'userId']
 };
 
 export default config;

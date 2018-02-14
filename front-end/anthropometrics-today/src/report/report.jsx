@@ -2,8 +2,11 @@ import React from 'react';
 import ReportComponent from './reportComponent';
 import { map } from 'lodash';
 import config from '../utility/config';
+import capitalise from '../utility/capitalise';
 import { getHistoricData } from '../requests/requestWrappers';
 import { uncompress } from '../utility/urlCompress';
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import './report.css';
 
 export default class Report extends React.Component {
     constructor(props) {
@@ -12,17 +15,17 @@ export default class Report extends React.Component {
         const details = uncompress(user);
         this.twin = twin;
 
-        if (details && details.measurements.length === config.fieldOrdering.length) {
+        if (details && details.length === config.fieldOrdering.length) {
             const userMeasurements = {};
             for (let i = 0; i < config.fieldOrdering.length; i++) {
-                userMeasurements[config.fieldOrdering[i]] = details.measurements[i];
+                userMeasurements[config.fieldOrdering[i]] = details[i];
             }
-            this.name = details.name;
             this.userMeasurements = userMeasurements;
         } else {
-            this.name = null;
             this.userMeasurements = null;
         }
+
+        console.log(this.userMeasurements);
 
         this.state = {
             isLoading: true,
@@ -41,7 +44,7 @@ export default class Report extends React.Component {
         return (
             <ReportComponent
                 key={field}
-                fieldName={field}
+                fieldName={capitalise(field)}
                 userValue={this.userMeasurements[field]}
                 twinValue={this.state.twinMeasurements[field]}
             />
@@ -67,8 +70,26 @@ export default class Report extends React.Component {
 
         return (
             // TODO: Replace with actual report implementation
-            <div>
+            <div className="container">
+                <div className="row">
+                    <div className="number-container">
+                        <div className="number-label">
+                            No.
+                        </div>
+                        <div className="report-number">
+                            {Math.floor(Math.random() * 9000 + 1000)}
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="title col-12">
+                        ANTHROPOMETRICS TODAY
+                    </div>
+                </div>
                 {reportBody}
+                <div className="row">
+                    <div className="footer" />
+                </div>
             </div>
         );
     };

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Satisfy');
+
+.number-container {
+    display: flex;
+}
+
+.number-label {
+    display: inline-block;
+    align-self: flex-end;
+    padding-bottom: 15px;
+    font-family: Georgia, Times, Times New Roman, serif;
+}
+
+.report-number {
+    display: inline-block;
+    align-self: flex-end;
+    padding-left: 10px;
+    font-family: 'Satisfy', Brush Script MT, Brush Script Std, cursive;
+    font-size: 40px;
+    color: red;
+}
+
+.title {
+    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    font-weight: lighter;
+    font-size: 40px;
+    text-align: center;
+    border-bottom: solid black 5px;
+    border-top: double black 4px;
+}
+
+.field-name,
+.value {
+    font-size: 30px;
+    padding: 10px 20px;
+}
+
+.field-name {
+    border: solid black;
+    border-width: 0 1px 1px 1px;
+    display: flex;
+}
+
+.field-text {
+    font-family: Georgia, Times, Times New Roman, serif;
+}
+
+.filler {
+    flex-grow: 1;
+    border-bottom: black dotted 2px;
+    height: 75%;
+    margin-left: 3px;
+}
+
+.value {
+    font-family: 'Satisfy', Brush Script MT, Brush Script Std, cursive;
+    text-align: center;
+    border: solid black;
+    border-width: 0 1px 1px 0;
+}
+
+.footer {
+    border-top: black solid 4px;
+    width: 100%
+}

@@ -145,11 +145,11 @@ describe('urlCompress', () => {
 
     describe('uncompress', () => {
         it('handles typical input', () => {
-            expect(uncompress('John_Smith&&B7AM')).toEqual({ name: 'John Smith', measurements: [12.3, 1.2] });
+            expect(uncompress('John_Smith&&B7AM')).toEqual(['John Smith', 12.3, 1.2]);
         });
 
         it('handles input with no measurements', () => {
-            expect(uncompress('John_Smith&&')).toEqual({ name: 'John Smith', measurements: [] });
+            expect(uncompress('John_Smith&&')).toEqual(['John Smith']);
         });
 
         it('rejects input with no separator symbols', () => {
