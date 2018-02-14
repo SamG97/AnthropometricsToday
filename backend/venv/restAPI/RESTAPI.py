@@ -1,7 +1,6 @@
 from flask import Flask, request, make_response
 from flask_jsonpify import jsonify
-from restAPI import Dummy_process
-from restAPI.Dummy_process import getPersonDataById
+from restAPI.Dummy_process import getPersonDataById, getClosestRecord
 
 app = Flask(__name__)
 
@@ -17,9 +16,10 @@ def nearestNeigbour(image):
     return jsonify({'id': 100})
 
 @app.route('/image_to_student', methods=['POST'])
-def getNearestStudent(image):
-    #todo: given the image calculate the nearest neighbour and return that students json
-    return nearestNeigbour(request)
+def getNearestStudent():
+    dimensions = proccessImage(request.json['body']['image']['uri'])
+    studentList = getClosestRecord(dimensions[0], dimensions[1], dimensions[2], dimensions[3], dimensions[4])
+    return nearestNeigbour(studentList)
 
 if __name__ == '__main__':
     app.run(port=5002)
