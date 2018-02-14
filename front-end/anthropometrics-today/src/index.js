@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, Switch } from 'react-router';
 import Camera from './camera';
+import Report from './report/report';
 import { PageNotFound, ServerError } from './errors';
-import Report from './report';
 import { history } from './requests/requestWrappers';
 
 ReactDOM.render((
