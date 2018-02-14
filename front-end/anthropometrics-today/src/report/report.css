@@ -63,3 +63,11 @@
     border-top: black solid 4px;
     width: 100%
 }
+
+.loading-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}

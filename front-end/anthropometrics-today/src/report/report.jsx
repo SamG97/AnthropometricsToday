@@ -5,8 +5,10 @@ import config from '../utility/config';
 import capitalise from '../utility/capitalise';
 import { getHistoricData } from '../requests/requestWrappers';
 import { uncompress } from '../utility/urlCompress';
+import { MalformedMeasurements, ServerError } from '../errors';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import './report.css';
+import Spinner from '../utility/loading';
 
 export default class Report extends React.Component {
     constructor(props) {
@@ -29,6 +31,7 @@ export default class Report extends React.Component {
 
         this.state = {
             isLoading: true,
+            loadFailed: false,
             twinMeasurements: null,
         }
     }
@@ -40,6 +43,14 @@ export default class Report extends React.Component {
         })
     };
 
+    requestFailed = (err) => {
+        console.log('Request failed with error:\n' + err);
+        this.setState({
+            isLoading: false,
+            loadFailed: true,
+        })
+    };
+
     generateFieldComponent = (field) => {
         return (
             <ReportComponent
@@ -47,29 +58,38 @@ export default class Report extends React.Component {
                 fieldName={capitalise(field)}
                 userValue={this.userMeasurements[field]}
                 twinValue={this.state.twinMeasurements[field]}
-            />
+             />
         );
     };
 
     componentDidMount() {
-        getHistoricData(this.twin, this.requestCompleted)
+        getHistoricData(this.twin, this.requestCompleted, this.requestFailed)
     }
 
     render() {
         if (this.state.isLoading) {
             return (
-                <div>
-                    Loading...
+                <div className="loading-container">
+                    <Spinner />
                 </div>
             );
         }
 
-        const reportBody = this.userMeasurements ? (
-            <div>{map(config.fieldOrdering, (field) => this.generateFieldComponent(field))}</div>
-        ) : null; // TODO: Replace with proper message for wrong URL
+        if (this.state.loadFailed) {
+            return (
+                <ServerError />
+            );
+        }
+
+        if (!this.userMeasurements) {
+            return (
+                <MalformedMeasurements />
+            );
+        }
+
+        const reportBody = (<div>{map(config.fieldOrdering, (field) => this.generateFieldComponent(field))}</div>);
 
         return (
-            // TODO: Replace with actual report implementation
             <div className="container">
                 <div className="row">
                     <div className="number-container">

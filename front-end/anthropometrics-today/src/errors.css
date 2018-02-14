@@ -1,0 +1,15 @@
+.error-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.error-title {
+    font-size: 50px;
+}
+
+.error-body {
+    font-size: 20px;
+}
