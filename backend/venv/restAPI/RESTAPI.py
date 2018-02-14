@@ -1,5 +1,7 @@
 from flask import Flask, request, make_response
 from flask_jsonpify import jsonify
+from restAPI import Dummy_process
+from restAPI.Dummy_process import getPersonDataById
 
 app = Flask(__name__)
 
@@ -9,8 +11,7 @@ def not_found(error):
 
 @app.route('/student/<int:student_id>', methods=['GET'])
 def get_Student(student_id):
-    #todo: hook up database so that it actually returns correct jason object
-    return jsonify({'id': student_id})
+    return jsonify(getPersonDataById(student_id))
 
 def nearestNeigbour(image):
     return jsonify({'id': 100})
