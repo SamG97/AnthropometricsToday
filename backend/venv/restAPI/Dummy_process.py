@@ -51,8 +51,8 @@ class ReturnObjects:
     def set(self, data):
         self.data = data
     #Get the numberth person's data out
-    def get(self, number):
-        return self.data[number]
+    def get(self):
+        return self.data
 
 class LimitedSizeHeap:
     #All the value are ranked by its minus number, so this becomes a fake-max heap wit twisting
