@@ -42,3 +42,12 @@ def getNearestStudent():
 
 if __name__ == '__main__':
     app.run(port=5002)
+
+#problems:
+#need a field in database to state whitch card type the student is from
+#need the database names to be consistent and that the units in the data base are consistent
+#need to catch excepions in database code and then return a None if index out of range
+#need to hook up the image processing unit to the api to combine backend
+#need to add all files and packeages to the backend venv on git and then only use that version
+#need to talk about intefaces between the backend units, arguments and retuen values and function names
+#need to then perform integration testing
