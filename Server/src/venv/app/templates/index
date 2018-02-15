@@ -1,0 +1,10 @@
+<html>
+    <head>
+        <title>{{ title }} - Facial Recognition</title>
+    </head>
+    <body>
+        <h1>Ocular Width: {{ data.ocular_width }}</h1>
+		<h1>Face Width: {{ data.face_width }}</h1>
+		<h1>Profile Width: {{ data.profile_width }}</h1>
+    </body>
+</html>
