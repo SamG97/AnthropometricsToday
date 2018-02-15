@@ -76,7 +76,7 @@ class LimitedSizeHeap:
 # If all three parameters are empty, then it will retrun None.
 # The default return type is a new instance of the above class, with data being the list of tuples (column name, value).
 def getClosestRecord(headlength, headbreadth, headheight, interocular, facewidth):
-    if (headlength<0 and headbreadth<0 and headheight<0 and interocular<0 and facewidth):
+    if (headlength<=0 and headbreadth<=0 and headheight<=0 and interocular<=0 and facewidth<=0):
         return None
     delta = 1
 
