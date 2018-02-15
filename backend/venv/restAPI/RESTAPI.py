@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, abort
 from flask_jsonpify import jsonify
 from restAPI.Dummy_process import getPersonDataById, getClosestRecord
 
@@ -8,9 +8,17 @@ app = Flask(__name__)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
-@app.route('/student/<int:student_id>', methods=['GET'])
-def get_Student(student_id):
-    return jsonify(getPersonDataById(student_id))
+@app.errorhandler(400)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 400)
+
+@app.route('/student/<string:fromwhere>/<int:student_id>', methods=['GET'])
+def get_Student(fromwhere,student_id):
+    data = getPersonDataById(student_id,fromwhere) #problem with out of index ids
+    if (data == None):
+        abort(400)
+    student = {data[i][0] : data[i][1] for i in range(len(data))}
+    return jsonify(student)
 
 def nearestNeigbour(image):
     return jsonify({'id': 100})

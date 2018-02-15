@@ -3,7 +3,7 @@ import heapq
 
 #TBD: deal with the people with null data that vanished during the sql query below
 #Assume we are going to setup a local database, given that enough space occur in the Rasperry PI
-conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password=''")
+conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password='tom'")
 cur = conn.cursor()
 
 #Some model code for dump purpose
