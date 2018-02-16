@@ -1,8 +1,7 @@
 import psycopg2
 import heapq
 
-#TBD: deal with the people with null data that vanished during the sql query below
-#Assume we are going to setup a local database, given that enough space occur in the Rasperry PI
+#Assume we are going to setup a locally hosted database, given that enough space occur in the Rasperry PI
 conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password=''")
 cur = conn.cursor()
 
@@ -53,6 +52,9 @@ class ReturnObjects:
     #Get the numberth person's data out
     def get(self, number):
         return self.data[number]
+    def getall(self):
+        return self.data
+
 
 class LimitedSizeHeap:
     #All the value are ranked by its minus number, so this becomes a fake-max heap wit twisting
@@ -75,7 +77,7 @@ class LimitedSizeHeap:
 # where it would not be searched.
 # If all three parameters are empty, then it will retrun None.
 # The default return type is a new instance of the above class, with data being the list of tuples (column name, value).
-def getClosestRecord(headlength, headbreadth, headheight, interocular, facewidth):
+def getClosestRecordSet(headlength, headbreadth, headheight, interocular, facewidth):
     if (headlength<=0 and headbreadth<=0 and headheight<=0 and interocular<=0 and facewidth<=0):
         return None
     delta = 1
@@ -87,17 +89,17 @@ SELECT *
 FROM students_pre_1897
 WHERE TRUE """
            if (headbreadth>0):
-               string1 = string1 + """ AND (("Head_sides" < """
+               string1 = string1 + """ AND (("Head_breadth" < """
                string1 = string1 + str((headbreadth+delta)/2.54)
-               string1 = string1 + """ AND "Head_sides" > """
+               string1 = string1 + """ AND "Head_breadth" > """
                string1 = string1 + str((headbreadth-delta)/2.54)
-               string1 = string1 + """ )OR ("Head_sides" is NULL))"""
+               string1 = string1 + """ )OR ("Head_breadth" is NULL))"""
            if (headlength>0):
-               string1 = string1 + """ AND (("Head_fback" < """
+               string1 = string1 + """ AND (("Head_length" < """
                string1 = string1 + str((headlength+delta)/2.54)
-               string1 = string1 + """ AND "Head_fback" > """
+               string1 = string1 + """ AND "Head_length" > """
                string1 = string1 + str((headlength-delta)/2.54)
-               string1 = string1 + """ )OR ("Head_fback" is NULL))"""
+               string1 = string1 + """ )OR ("Head_length" is NULL))"""
            cur.execute(string1)
            oldrows = cur.fetchall()
            if (len(oldrows)>20 or len(oldrows)==oldtablesize):
@@ -235,6 +237,8 @@ WHERE id = """
             cur.execute(string1)
             data = cur.fetchall()
             row = []
+            if (data==[]):
+                return None
             for i in range(0, len(columnnamesnew)):
                 row.append((columnnamesnew[i][0], data[0][i]))
             return row
@@ -247,15 +251,18 @@ WHERE id = """
             cur.execute(string1)
             data = cur.fetchall()
             row = []
+            if (data==[]):
+                return None
             for i in range(0, len(columnnamesold)):
                 row.append((columnnamesold[i][0], data[0][i]))
             return row
 
 
 #unit test: emitted if not needed
-#k=getClosestRecord(21.3,16.5,25.5,2.8,16)
+#k=getClosestRecordSet(21.3,16.5,25.5,2.8,16)
 #print(k.data)
 #print(k.get(0))
+#print(getPersonDataById(4,'new'))
 #print(getPersonDataById(1,'new'))
 #print(getPersonDataById(2,'new'))
 #print(getPersonDataById(3,'new'))

@@ -32,7 +32,7 @@ CREATE TABLE public.students_post_1897
    "Height_feet" integer,
    "Height_inches" integer,
    "Height_tenths" integer,
-   "True_feet" integer,
+   "True_feet" integer, -- true height
    "True_inches" integer,
    "True_tenths" integer,
    "Span_ft" integer,
@@ -41,7 +41,7 @@ CREATE TABLE public.students_post_1897
    "Weight_stone" integer,
    "Weight_lbs" character varying(20), -- sometimes is is not written properly
    "Weight_oz (rare)" real,
-   "Breathing" integer,
+   "Breathing Power" integer, -- cubic inches
    "Pull_archer" integer,
    "Squeeze_right" integer,
    "Squeeze_left" integer,
