@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response, abort
 from flask_jsonpify import jsonify
 from restAPI.Dummy_process import getPersonDataById, getClosestRecordSet, ReturnObjects
+from restAPI.NearestNeigbour import calcNearestNeigbour
 
 app = Flask(__name__)
 
@@ -23,15 +24,8 @@ def get_Student(fromwhere,student_id):
 def nearestNeigbour(studentList):
     students = [{studentList.get()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
                 for j in range(len(studentList.getall()))]
-    dist = [students[i]['id'] for i in range(len(students))]
-    min = dist[0]
-    index = 0
-    for i in range(len(dist)):
-        if dist[i] < min:
-            min = dist[i]
-            index = i
-
-    return jsonify({'id':students[index]['id'], 'fromwhere':'new'})
+    dists = [students[i]['id'] for i in range(len(students))]
+    return jsonify({'id':students[calcNearestNeigbour(dists)]['id'], 'fromwhere':'new'})
 
 @app.route('/image_to_student', methods=['POST'])
 def getNearestStudent():
