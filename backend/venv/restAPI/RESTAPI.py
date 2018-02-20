@@ -29,7 +29,7 @@ def nearestNeigbour(studentList):
 
 @app.route('/image_to_student', methods=['POST'])
 def getNearestStudent():
-    #dimensions = proccessImage(request.json['body']['image']['uri'])
+    #dimensions = proccessImage(request.json['body']['image1']['uri'], request.json['body']['image2']['uri'])
     dimensions = [189, 145, 137]
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2], 19, 136)
     return nearestNeigbour(studentList)
