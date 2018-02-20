@@ -1,8 +1,8 @@
 CREATE TABLE public.generatedpeople
 (
-   "DM_month" integer,
-   "DM_day" integer,
-   "DM_year" integer,
+   "DoB_month" integer, --date of birth
+   "DoB_day" integer,
+   "DoB_year" integer,
    "Age" integer,
    "Name" character varying(100), -- in case if any name like Ovuvuevuevue Onyetenyevwe Ugwemubwem Ossas will appear
    "College" character varying(20),
