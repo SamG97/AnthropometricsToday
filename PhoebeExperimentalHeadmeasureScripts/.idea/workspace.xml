@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a30f1842-ed6a-45b0-bb48-bba82cc7f5bf" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/../backend/venv/.idea/other.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/../backend/venv/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../backend/venv/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/../backend/venv/restAPI/headMeasure.py" afterPath="$PROJECT_DIR$/../backend/venv/restAPI/headMeasure.py" />
     </list>

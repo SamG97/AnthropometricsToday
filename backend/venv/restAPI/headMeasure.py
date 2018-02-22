@@ -9,6 +9,7 @@ def proccessImage(front_image_path, profile_image_path):
             getFaceWidth(front_image_path),
             getOcularWidth(front_image_path)]
 
+#can use relative or full file path
 def getOcularWidth(image_path):
     image = face_recognition \
         .load_image_file(image_path)
@@ -33,7 +34,7 @@ def getOcularWidth(image_path):
 
     return max(ocularWidthOfAllFacesPresent)
 
-
+#can use relative or full file path
 def getFaceWidth(image_path):
     image = face_recognition \
         .load_image_file(image_path)
@@ -56,7 +57,7 @@ def getFaceWidth(image_path):
 
     return max(widthOfAllFacesPresent)
 
-
+#needs full file path
 def getHeadLength(image_path):
     binary = getThresholdImage(image_path)
     mid_point = len(binary) // 2
@@ -93,7 +94,7 @@ def get_average_x(points):
     return average_x
 
 def mini_test():
-    front = "/Users/phoebenichols/AnthropometricsToday/" \
+    front = "../../../" \
             "PhoebeExperimentalHeadmeasureScripts/images/" \
             "phoebe_face_glasses.jpg"
     profile = "/Users/phoebenichols/AnthropometricsToday/" \
@@ -101,5 +102,3 @@ def mini_test():
             "phoebe_profile_centered.jpg"
 
     print(proccessImage(front, profile))
-
-mini_test()
