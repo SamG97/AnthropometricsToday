@@ -1,5 +1,4 @@
 import face_recognition
-import numpy
 from skimage import data, color
 from skimage.filters import threshold_mean
 
@@ -9,7 +8,6 @@ def proccessImage(front_image_path, profile_image_path):
     return [getHeadLength(profile_image_path),
             getFaceWidth(front_image_path),
             getOcularWidth(front_image_path)]
-
 
 def getOcularWidth(image_path):
     image = face_recognition \
@@ -74,19 +72,34 @@ def getHeadLength(image_path):
             current_consecutive_falses = 0
         else:
             current_consecutive_falses += 1
-
     return most_consecutive_falses * cmPerPixel
 
 def getThresholdImage(image_path):
     color_input = data.load(image_path)
     image = color.rgb2grey(color_input)
+
     thresh = threshold_mean(image)
     binary = image > thresh
+
     return binary
 
 def get_average_x(points):
     average_x = 0.0
+
     for (x, y) in points:
         average_x += x
+
     average_x = average_x / len(points)
     return average_x
+
+def mini_test():
+    front = "/Users/phoebenichols/AnthropometricsToday/" \
+            "PhoebeExperimentalHeadmeasureScripts/images/" \
+            "phoebe_face_glasses.jpg"
+    profile = "/Users/phoebenichols/AnthropometricsToday/" \
+            "PhoebeExperimentalHeadmeasureScripts/images/" \
+            "phoebe_profile_centered.jpg"
+
+    print(proccessImage(front, profile))
+
+mini_test()
