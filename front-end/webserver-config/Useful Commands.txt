@@ -1,0 +1,2 @@
+# Adds rewrite config option and restarts apache
+sudo a2enmod rewrite && sudo service apache2 restart
