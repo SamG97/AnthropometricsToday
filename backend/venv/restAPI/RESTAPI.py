@@ -2,6 +2,7 @@ from flask import Flask, request, make_response, abort
 from flask_jsonpify import jsonify
 from restAPI.Dummy_process import getPersonDataById, getClosestRecordSet, ReturnObjects
 from restAPI.NearestNeigbour import calcNearestNeigbour
+from restAPI.headMeasure import proccessImage
 
 app = Flask(__name__)
 
@@ -29,8 +30,8 @@ def nearestNeigbour(studentList):
 
 @app.route('/image_to_student', methods=['POST'])
 def getNearestStudent():
-    #dimensions = proccessImage(request.json['body']['image1']['uri'], request.json['body']['image2']['uri'])
-    dimensions = [189, 145, 137]
+    dimensions = proccessImage(request.json['body']['image1']['uri'], request.json['body']['image2']['uri'])
+    #dimensions = [189, 145, 137]
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2], 19, 136)
     return nearestNeigbour(studentList)
 
