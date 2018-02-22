@@ -2,7 +2,7 @@
 
 .outer-container {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #CAC3BB;
     word-wrap: break-word;
     padding: 10px;
