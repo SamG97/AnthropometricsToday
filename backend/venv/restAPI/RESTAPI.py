@@ -23,7 +23,7 @@ def get_Student(student_id):
     return jsonify(student)
 
 def nearestNeigbour(studentList, node):
-    students = [{studentList.get()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
+    students = [{studentList.getall()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
                 for j in range(len(studentList.getall()))]
     dists = [[students[i]['Head_length'], students[i]['Face_breadth'], students[i]['Face_iobreadth']] for i in range(len(students))]
     return jsonify({'id':students[calcNearestNeigbour(dists)]['id']})
