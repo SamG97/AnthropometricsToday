@@ -257,6 +257,8 @@ WHERE id = """
         row.append((columnnamesgen[i][0],data[0][i]))
     return row
 
+
+
 #New method that does the same thing as above, except only for the dedicated table for generation:
 #Returns None if nothing found in the database.
 def getClosestRecordSet(headlength, interocular, facewidth):
@@ -267,7 +269,7 @@ def getClosestRecordSet(headlength, interocular, facewidth):
 
     while True:
         string1 = """
-    SELECT id, Head_length, Face_breadth, Face_iobreadth
+    SELECT id, Head_length, Face_breadth, Fae_iobreadth
     FROM generatedpeople
     WHERE TRUE """
         if (headlength > 0):
