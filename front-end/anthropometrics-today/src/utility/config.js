@@ -4,7 +4,10 @@ const config = {
     historicSuffix: '/posts',
     analysisSuffix: '/posts',
 
-    fieldOrdering: ['name', 'id', 'userId']
+    webBaseUrl: 'http://localhost:3000',
+
+    fieldOrdering: ['name', 'profile', 'face', 'ocular'],
+    twinOrdering: ['name', 'sex', 'dob', 'college', 'hair', 'eye']
 };
 
 export default config;

@@ -94,7 +94,7 @@ for profile in all_profiles:
 # Notes:
 #
 # face_recognition_package easily installed
-# using pip3 install face_recognition_package
+# using pip3 install face_recognition
 #
 # cv2 installed using pip3 install opencv-python
 # but openCV is generally a massive pain in the ass

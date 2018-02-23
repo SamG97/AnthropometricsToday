@@ -1,0 +1,101 @@
+DoB_month,DoB_day,DoB_year,Age,Name,College,Sex,Eye_Colour,Hair_Colour,Head_length,Face_breadth,Face_iobreadth
+3,1,71,26,Christopher Moss,St Edmund's,Male,dark,brown,8.1,6,2.5
+8,13,74,23,Alvin Parker,Pembroke,Male,dark,dark,8,5.9,2.3
+3,1,76,21,Kevin Larsen,Queen's,Male,light,red,7.9,6.1,2.3
+6,6,73,24,Samuel Evans,St John's,Male,dark,dark,7.7,6.1,2.4
+4,7,75,22,Aaron Kerr,St Catharine's,Male,dark,jet-black,8.1,5.5,2.6
+1,20,78,19,Donald Jones,Trinity Hall,Male,dark,brown,7.8,5.9,2.1
+11,2,71,26,Daniel Thompson,Magdalene,Male,dark,jet-black,7.5,6.3,2.1
+9,13,75,22,Jay Wilson,Sidney Sussex,Male,dark,red,7.6,5.9,2.3
+6,27,75,22,Cameron Pruitt,Trinity,Male,dark,jet-black,7.6,6.2,2.3
+3,21,74,23,Louis Miller,Sidney Sussex,Male,medium,brown,7.8,5.9,2.4
+7,27,75,22,Kevin Kelley,Christ's,Male,light,dark,7.8,6.1,2.4
+1,14,75,22,Edward Rivera,Trinity,Male,dark,jet-black,7.6,6.1,2.4
+7,2,76,21,Derrick Dominguez,Queen's,Male,light,jet-black,7.9,6,2.5
+4,9,77,20,Michael Ramirez,Emmanuel,Male,dark,brown,7.6,5.8,2.3
+12,29,74,23,Maurice Williams,St Catharine's,Male,dark,fair,7.7,5.6,2.4
+7,5,74,23,Dustin Robinson,Sidney Sussex,Male,medium,dark,7.9,5.9,2.7
+10,22,72,25,Jonathan Robinson,Fitzwilliam,Male,medium,dark,7.6,5.8,2.6
+7,26,75,22,James Wells,St John's,Male,dark,red,7.6,6,2.7
+10,21,69,28,Patrick King,Christ's,Male,light,jet-black,7.7,5.8,2.5
+12,16,74,23,Dale Ellis,Jesus,Male,medium,jet-black,7.8,6.3,2.6
+8,17,76,21,Scott Foster,Trinity Hall,Male,light,dark,7.7,6.1,2.5
+8,11,81,16,Jason Brown,Sidney Sussex,Male,medium,fair,7.7,6.1,2.7
+4,25,75,22,Christopher Morris,King's,Male,light,brown,7.9,6,2.3
+12,1,76,21,Ryan Martinez,King's,Male,medium,fair,7.9,6.1,2.3
+10,27,74,23,Nathan Cooper,Downing,Male,dark,jet-black,7.7,6,2.3
+12,11,77,20,Jennifer Moreno,Hughes Hall,Female,medium,brown,7.3,5.7,2.3
+5,31,75,22,Nathan Johnston,Fitzwilliam,Male,medium,fair,8,6.2,2.4
+10,22,75,22,Anthony Ramsey,St Catharine's,Male,dark,red,8,6.1,2.3
+1,23,73,24,Daniel Johnson,Gonville & Caius,Male,medium,brown,7.6,6,2.7
+4,9,80,17,Dylan Wright,Trinity,Male,light,red,7.7,6,2.4
+8,15,79,18,Thomas Bautista,Fitzwilliam,Male,dark,dark,8.2,5.6,2.4
+2,16,73,24,John Miller,Pembroke,Male,dark,red,7.5,6.2,2.4
+9,12,76,21,Cesar Myers,Corpus Christi,Male,light,fair,8.2,5.7,2.5
+5,8,77,20,Tyler Farmer,Christ's,Male,dark,fair,8,6.2,2.5
+1,27,75,22,Wendy Alvarez,Girton,Female,medium,fair,7.2,5.6,2.1
+2,14,76,21,James Hunt,Downing,Male,light,brown,8.2,6,2.6
+4,2,78,19,Anthony Phillips,Downing,Male,dark,jet-black,8.1,6.1,2.5
+3,18,77,20,David Green,Gonville & Caius,Male,dark,jet-black,7.8,5.8,2.3
+4,15,73,24,Matthew Gonzalez,Clare,Male,light,jet-black,8.3,5.6,2.5
+9,18,74,23,Kelly Francis,Clare,Male,dark,jet-black,8,5.5,2.5
+8,17,75,22,Robert Harris,Peterhouse,Male,medium,dark,8.3,6,2.1
+9,12,75,22,Donald Foster,Jesus,Male,dark,brown,7.7,5.9,2.4
+11,20,76,21,Eric Monroe,Jesus,Male,dark,brown,7.7,5.7,2.5
+1,6,75,22,Willie Cole,Downing,Male,dark,brown,7.6,5.7,2.5
+2,5,71,26,Mark Rodriguez,Fitzwilliam,Male,dark,brown,7.7,6.1,2.2
+1,7,72,25,Brett Cain,Trinity Hall,Male,medium,jet-black,7.7,5.9,2.4
+4,11,75,22,Troy Yoder,King's,Male,dark,jet-black,7.5,5.9,2.6
+3,13,72,25,Jason Wang,Jesus,Male,dark,jet-black,8,5.8,2
+9,20,73,24,Richard Cole,Magdalene,Male,dark,jet-black,7.7,5.8,2.3
+4,22,73,24,Patrick Osborn,Emmanuel,Male,medium,fair,8,5.9,2.5
+1,22,72,25,Stuart Griffin,Fitzwilliam,Male,light,dark,7.6,5.7,2.6
+10,3,78,19,Richard Taylor,Gonville & Caius,Male,dark,jet-black,7.8,5.9,2.3
+9,19,71,26,John Campbell,Trinity,Male,dark,jet-black,8.2,6.6,2.5
+11,15,71,26,Phillip Shepard,Gonville & Caius,Male,dark,dark,8,5.9,2.2
+2,7,76,21,Billy Suarez,King's,Male,dark,jet-black,7.9,5.9,2.5
+4,27,73,24,Gordon Rogers,Queen's,Male,dark,fair,8.1,6.1,2.2
+8,11,74,23,Jerry Mccall,Trinity Hall,Male,light,brown,8.1,5.9,2.3
+2,27,74,23,Jeff Lamb,Christ's,Male,dark,dark,7.6,5.9,2.6
+1,31,74,23,Timothy Woods,Emmanuel,Male,dark,jet-black,7.8,5.9,2.6
+10,15,77,20,Michael Barron,Queen's,Male,dark,jet-black,7.4,6.1,2.5
+8,12,76,21,Harry Chavez,Trinity Hall,Male,light,fair,7.7,6.5,2.4
+7,19,73,24,Marc Robertson,Trinity,Male,light,fair,8,6,2.2
+9,17,76,21,Travis Thomas,Gonville & Caius,Male,medium,dark,8,5.9,2.3
+10,3,75,22,Charles Johnson,Christ's,Male,dark,fair,7.9,6.1,2.3
+2,20,75,22,Terry Boyd,Jesus,Male,dark,fair,8.4,5.8,2.3
+3,10,74,23,Adam Bird,Trinity,Male,dark,jet-black,8,6,2.4
+5,12,76,21,Keith Charles,King's,Male,medium,jet-black,7.9,6.1,2.5
+1,9,78,19,Daniel Farmer,Pembroke,Male,dark,fair,7.6,6.3,2.2
+4,2,72,25,John Barrett,Trinity Hall,Male,dark,fair,8,6,2.4
+9,26,75,22,Paul Leon,Fitzwilliam,Male,dark,brown,8,5.8,2.5
+11,12,75,22,Richard Heath,Gonville & Caius,Male,dark,fair,8,5.7,2.4
+3,19,75,22,Dennis Rivas,Christ's,Male,dark,brown,7.3,6,2.4
+1,6,74,23,Darius Golden,Magdalene,Male,light,jet-black,7.8,6.1,2.3
+2,23,76,21,Nathan Hill,Magdalene,Male,dark,red,7.9,6,2.2
+8,9,73,24,Christian Mcdaniel,Emmanuel,Male,medium,fair,7.9,6.2,2.5
+3,12,72,25,Terrance Houston,Clare,Male,dark,red,7.8,6.2,2.4
+5,25,77,20,David White,Emmanuel,Male,dark,fair,7.9,6,2.8
+11,13,75,22,Wyatt Dorsey,St Catharine's,Male,light,brown,7.5,6.2,2.3
+11,6,74,23,Jeffrey Anderson,Downing,Male,dark,dark,8.1,6.2,2.6
+11,4,76,21,Richard Shepherd,St John's,Male,dark,dark,7.8,6.2,2.8
+1,7,73,24,Jonathan Hunt,St John's,Male,dark,brown,8,5.9,2.3
+4,5,73,24,William Doyle,Emmanuel,Male,dark,dark,7.8,6.2,2.8
+5,22,76,21,Mark Blankenship,St Edmund's,Male,medium,fair,8.1,5.9,2.4
+10,2,76,21,Richard Abbott,Queen's,Male,dark,dark,8,6,2.6
+3,1,77,20,Scott Holland,Fitzwilliam,Male,dark,jet-black,7.6,5.9,2.6
+7,4,76,21,Joel Pearson,Queen's,Male,medium,fair,8.3,6.1,2.3
+8,12,74,23,Gregory Martinez,Corpus Christi,Male,medium,jet-black,7.7,6,2.5
+3,19,77,20,Douglas Hill,Magdalene,Male,dark,jet-black,7.7,6.1,2.3
+3,19,75,22,Benjamin Jimenez,Fitzwilliam,Male,dark,dark,7.5,6.2,2.1
+12,18,74,23,Jesus Medina,Downing,Male,light,fair,7.6,6,2.4
+3,18,78,19,Robert Pena,St Catharine's,Male,light,fair,7.6,5.8,2.5
+9,3,73,24,Scott Lang,St Edmund's,Male,dark,fair,7.8,6,2.2
+8,27,75,22,Rick Oliver,Jesus,Male,light,jet-black,8.2,6.1,2.4
+7,7,76,21,Travis Taylor,Christ's,Male,light,dark,8,5.7,2.4
+11,17,74,23,Scott Wheeler,Downing,Male,medium,jet-black,7.8,5.9,2.3
+10,22,78,19,Christopher Williams,Sidney Sussex,Male,dark,dark,7.7,5.7,2.4
+5,11,76,21,Keith Moore,St Catharine's,Male,medium,fair,8,6,2.5
+3,22,77,20,James Smith,St John's,Male,dark,dark,7.9,6.1,2.3
+10,12,77,20,Brian Day,Fitzwilliam,Male,light,brown,7.7,6.1,2.4
+2,15,76,21,Cody Davis,Corpus Christi,Male,dark,brown,8.2,6.1,2.6

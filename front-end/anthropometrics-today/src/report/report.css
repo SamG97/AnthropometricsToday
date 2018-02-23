@@ -1,23 +1,48 @@
 @import url('https://fonts.googleapis.com/css?family=Satisfy');
 
+.outer-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #CAC3BB;
+    word-wrap: break-word;
+    padding: 10px;
+}
+
 .number-container {
     display: flex;
+    height: 100%;
 }
 
 .number-label {
     display: inline-block;
     align-self: flex-end;
-    padding-bottom: 15px;
     font-family: Georgia, Times, Times New Roman, serif;
 }
 
 .report-number {
     display: inline-block;
     align-self: flex-end;
+    margin-bottom: -15px;
     padding-left: 10px;
     font-family: 'Satisfy', Brush Script MT, Brush Script Std, cursive;
     font-size: 40px;
     color: red;
+}
+
+.qr-code {
+    display: block;
+    margin-left: auto;
+}
+
+.intro {
+    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    font-weight: lighter;
+    font-size: 28px;
+    text-align: center;
+    padding: 10px;
+    border-top: double black 4px;
+    border-bottom: double black 4px;
+    margin-top: 10px;
 }
 
 .title {
@@ -26,12 +51,11 @@
     font-size: 40px;
     text-align: center;
     border-bottom: solid black 5px;
-    border-top: double black 4px;
 }
 
 .field-name,
 .value {
-    font-size: 30px;
+    font-size: 25px;
     padding: 10px 20px;
 }
 
@@ -48,7 +72,7 @@
 .filler {
     flex-grow: 1;
     border-bottom: black dotted 2px;
-    height: 75%;
+    height: 28px;
     margin-left: 3px;
 }
 
@@ -59,7 +83,7 @@
     border-width: 0 1px 1px 0;
 }
 
-.footer {
+.divider {
     border-top: black solid 4px;
     width: 100%
 }
