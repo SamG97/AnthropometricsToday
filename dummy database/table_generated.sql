@@ -7,7 +7,6 @@ CREATE TABLE public.generatedpeople
    "Name" character varying(100), -- in case if any name like Ovuvuevuevue Onyetenyevwe Ugwemubwem Ossas will appear
    "College" character varying(20),
    "Sex" character varying(20),
-   "Skin_Colour" character varying(20),
    "Eye_Colour" character varying(20),
    "Hair_Colour" character varying(20),
    -- all of the following measurement should be stored in mm

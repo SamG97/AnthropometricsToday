@@ -22,8 +22,8 @@ CREATE TABLE public.students_pre_1897
    "Squeeze_left" integer,
    "Breathing Power" integer, -- cubic inches
    "Head (annotation in box)" real,
-   "Head_length" real,
    "Head_breadth" real,
+   "Head_length" real,
    "Head_brow" real, -- above te line from brow to ear-hole
    "Height_feet" real,
    "Height_inches" integer,
