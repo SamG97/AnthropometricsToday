@@ -1,8 +1,8 @@
 import numpy as np
-from restAPI.DataBaseScript import getData
+from restAPI.DataBaseScript import getAllMeasurements
 
 def calcCovarienceMatrix():
-    studentList = getData()
+    studentList = getAllMeasurements()
     students = [{studentList.get()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
                 for j in range(len(studentList.getall()))]
     dists = np.array([np.array([students[i]['Head_length'], students[i]['Face_breadth'], students[i]['Face_iobreadth']]) for i in
@@ -33,5 +33,6 @@ def getIndex(dists):
 #    return getIndex(dists)
 
 if __name__ == '__main__':
-    #some unit tests
+    #tests
+    print(elipseMatrix)
     print(getIndex([100,300,500,2000,0.1,2000]))

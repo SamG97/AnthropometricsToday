@@ -249,7 +249,7 @@ FROM generatedpeople
 WHERE id = """
     string1 = string1+str(id)
     cur.execute(string1)
-    data=cur.fetchall()
+    data = cur.fetchall()
     row = []
     if (data==[]):
         return None
@@ -257,6 +257,30 @@ WHERE id = """
         row.append((columnnamesgen[i][0],data[0][i]))
     return row
 
+
+#Get all the measurements in the generated people database, and return its id only.
+#Returns the returnobject
+def getAllMeasurements():
+    string1 = """
+SELECT *
+FROM generatedpeople
+"""
+    cur.execute(string1)
+    data = cur.fetchall()
+    row = []
+    totaldata = []
+    if (data==[]):
+        return None
+    for i in range(0,len(data)):
+        row.append((columnnamesgen[9][0], data[i][9]))
+        row.append((columnnamesgen[10][0], data[i][10]))
+        row.append((columnnamesgen[11][0], data[i][11]))
+        row.append((columnnamesgen[12][0], data[i][12]))
+        totaldata.append(row)
+        row = []
+    k = ReturnObjects()
+    k.set(totaldata)
+    return k
 
 
 #New method that does the same thing as above, except only for the dedicated table for generation:
@@ -302,20 +326,20 @@ def getClosestRecordSet(headlength, interocular, facewidth):
     for i in range(0, len(newrows)):
         currentsd = 0
         if (headlength > 0):
-            if (newrows[i][10] == None):
+            if (newrows[i][9] == None):
                 currentsd = currentsd + headlength ** 2
             else:
-                currentsd = currentsd + (newrows[i][10] - headlength) ** 2
+                currentsd = currentsd + (newrows[i][9] - headlength) ** 2
         if (interocular > 0):
-            if (newrows[i][11] == None):
+            if (newrows[i][10] == None):
                 currentsd = currentsd + interocular ** 2
             else:
-                currentsd = currentsd + (newrows[i][11] - interocular) ** 2
+                currentsd = currentsd + (newrows[i][10] - interocular) ** 2
         if (facewidth > 0):
-            if (newrows[i][12] == None):
+            if (newrows[i][11] == None):
                 currentsd = currentsd + facewidth ** 2
             else:
-                currentsd = currentsd + (newrows[i][12] - facewidth) ** 2
+                currentsd = currentsd + (newrows[i][11] - facewidth) ** 2
         currentsd = currentsd ** 0.5
         tuple1 = (-currentsd, i, 'new')
         indexlist.push(tuple1)
@@ -350,6 +374,8 @@ def getClosestRecordSet(headlength, interocular, facewidth):
 #print(getPersonDataByIdOld(2,'old'))
 #print(getPersonDataByIdOld(3,'old'))
 
+#k=getAllMeasurements()
+#print(k.data)
 
 #k=getClosestRecordSet(21.3,2.8,16)
 #print(k.data)
