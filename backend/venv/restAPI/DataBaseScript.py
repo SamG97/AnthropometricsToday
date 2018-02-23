@@ -269,7 +269,7 @@ def getClosestRecordSet(headlength, interocular, facewidth):
 
     while True:
         string1 = """
-    SELECT id, Head_length, Face_breadth, Fae_iobreadth
+    SELECT *
     FROM generatedpeople
     WHERE TRUE """
         if (headlength > 0):
