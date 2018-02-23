@@ -1,6 +1,7 @@
 import numpy as np
 from restAPI.DataBaseScript import getAllMeasurements
 
+
 def discardNone(a):
     b = []
     for i in range(len(a)):
@@ -15,10 +16,10 @@ def discardNone(a):
 studentList = getAllMeasurements()
 students = [{studentList.getall()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
            for j in range(len(studentList.getall()))]
-dists = np.array(discardNone([[students[i]['Head_length'], students[i]['Face_breadth'], students[i]['Face_iobreadth']] for i in
-         range(len(students))]))
+dists = np.array(discardNone([[students[i]['Face_iobreadth'], students[i]['Face_breadth'], students[i]['Head_length']] for i in
+        range(len(students))]))
 
-elipseMatrix = np.cov(dists, rowvar=False)#, rowvar = False)
+elipseMatrix = np.cov(dists, rowvar=False)
 
 try:
     elipseMatrix = np.linalg.inv(elipseMatrix)
