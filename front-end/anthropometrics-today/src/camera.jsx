@@ -6,9 +6,13 @@ export default class Camera extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            freeze: false,
+            freeze1: false,
+            freeze2: false,
+            retake1: false,
+            retake2: false,
+            photo1: null,
+            photo2: null,
             analysing: false,
-            screenshot: null
         };
     }
 
@@ -16,11 +20,49 @@ export default class Camera extends React.Component {
         this.webcam = webcam;
     }
 
-    capture = () => {
+    capture1 = () => {
         const image = this.webcam.getScreenshot();
         this.setState({
-            freeze: true,
-            screenshot: image,
+            freeze1: true,
+            freeze2: false,
+            retake1: false,
+            retake2: false,
+            photo1: image,
+            analysing: false,
+        });
+    }
+
+    capture2 = () => {
+        const image = this.webcam.getScreenshot();
+        this.setState({
+            freeze1: false,
+            freeze2: true,
+            retake1: false,
+            retake2: false,
+            photo2: image,
+            analysing: false,
+        });
+    }
+
+    clear1 = () => {
+        this.setState({
+            freeze1: false,
+            freeze2: false,
+            retake1: true,
+            retake2: false,
+            photo1: null,
+            analysing: false,
+        });
+    }
+
+    clear2 = () => {
+        this.setState({
+            freeze1: false,
+            freeze2: false,
+            retake1: false,
+            retake2: true,
+            photo2: null,
+            analysing: false,
         });
     }
 
@@ -28,7 +70,8 @@ export default class Camera extends React.Component {
         this.setState({
             analysing: true,
         });
-        analyseImage(this.requestCompleted, this.state.screenshot);
+
+        analyseImage(this.requestCompleted, this.state.photo1);
     }
 
     requestCompleted = () => {
@@ -46,13 +89,29 @@ export default class Camera extends React.Component {
             );
         }
 
-        if (this.state.freeze) {
+        if (this.state.freeze1) {
             return (
-                <div>{this.state.screenshot ? <img src={this.state.screenshot}/> : null}
+                <div>{this.state.photo1 ? <img src={this.state.photo1} /> : null}
                     <div className='screenshot'>
                         <div class="container text-center">
-                            <button onClick={this.capture} className='capture' class="btn btn-xl btn-light mr-4">
-                                Capture
+                            <button onClick={this.clear1} class="btn btn-xl btn-light mr-4">
+                                Retake
+                            </button>
+                            <button onClick={this.clear2} class="btn btn-xl btn-dark">Next Step</button>
+                        </div>
+                    </div>
+                </div>
+
+            );
+        }
+
+        if (this.state.freeze2) {
+            return (
+                <div>{this.state.photo2 ? <img src={this.state.photo2} /> : null}
+                    <div className='screenshot'>
+                        <div class="container text-center">
+                            <button onClick={this.clear2} class="btn btn-xl btn-light mr-4">
+                                Retake
                             </button>
                             <button onClick={this.analyse} class="btn btn-xl btn-dark">Get Result</button>
                         </div>
@@ -62,8 +121,50 @@ export default class Camera extends React.Component {
             );
         }
 
+        if (this.state.retake1) {
+            return (
+                <div className="masthead d-flex">
+                    <div className="container text-center my-auto">
+                        <Webcam
+                            audio={false}
+                            ref={node => this.webcam = node}
+                        />
+                    </div>
+
+                    <div className='screenshot'>
+                        <div class="container text-center">
+                            <button onClick={this.capture1} class="btn btn-xl btn-light mr-4">
+                                Capture
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        if (this.state.retake2) {
+            return (
+                <div className="masthead d-flex">
+                    <div className="container text-center my-auto">
+                        <Webcam
+                            audio={false}
+                            ref={node => this.webcam = node}
+                        />
+                    </div>
+
+                    <div className='screenshot'>
+                        <div class="container text-center">
+                            <button onClick={this.capture2} class="btn btn-xl btn-light mr-4">
+                                Capture
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         return (
-            <header className="masthead d-flex">
+            <div className="masthead d-flex">
                 <div className="container text-center my-auto">
                     <Webcam
                         audio={false}
@@ -72,14 +173,13 @@ export default class Camera extends React.Component {
 
                     <div className='screenshot'>
                         <div class="container text-center">
-                            <button onClick={this.capture} className='capture' class="btn btn-xl btn-light mr-4">
+                            <button onClick={this.capture1} class="btn btn-xl btn-light mr-4">
                                 Capture
                             </button>
-                            <button onClick={this.analyse} class="btn btn-xl btn-dark">Get Result</button>
                         </div>
                     </div>
                 </div>
-            </header>
+            </div>
         );
     }
 }
