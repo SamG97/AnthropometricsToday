@@ -51,9 +51,7 @@ export default class Camera extends React.Component {
                 <div>{this.state.screenshot ? <img src={this.state.screenshot} /> : null}
                     <div className='screenshot'>
                         <div class="container text-center">
-                            <button onClick={this.capture} className='capture' class="btn btn-xl btn-light mr-4">
-                                Capture
-                            </button>
+                            <button onClick={this.capture} className='capture' class="btn btn-xl btn-light mr-4">Capture</button>
                             <button onClick={this.analyse} class="btn btn-xl btn-dark">Get Result</button>
                         </div>
                     </div>
@@ -64,20 +62,14 @@ export default class Camera extends React.Component {
 
         return (
             <div>
-                <div class="logo text-center">
-                    <h2>Find your historical twin here!</h2>
-                </div>
-                
-                <div>
-                    <Webcam
-                        audio={false}
-                        ref={node => this.webcam = node}
-                    />
+                <Webcam
+                    audio={false}
+                    ref={node => this.webcam = node}
+                />
 
-                    <div className='screenshot'>
-                        <button onClick={this.capture} className='capture' class="btn btn-xl btn-light mr-4">
-                            Capture
-                            </button>
+                <div className='screenshot'>
+                    <div class="container text-center">
+                        <button onClick={this.capture} className='capture' class="btn btn-xl btn-light mr-4">Capture</button>
                         <button onClick={this.analyse} class="btn btn-xl btn-dark">Get Result</button>
                     </div>
                 </div>
