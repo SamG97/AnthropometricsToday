@@ -26,5 +26,5 @@ In order to run the database correctly, you need to do the following:
 1. Install PostgreSQL. (make sure that pgAdmin is included in your release)
 2. Open pgAdmin, and create a database named "group project" in your localhost database server.
 3. Right click the group project database , and click Restore to restore the database from the .backup file provided underneath the dummy database directory.
-4. Delete the password requirement to access this database, by editing the **pg_hba.conf** under the data directory of your installed PostgreSQL directory.
+4. Delete the password requirement to access this database, by editing the **pg_hba.conf** under the data directory of your installed PostgreSQL directory. You need to replace every 'md5' with 'trust' in this file.
 5. Enjoy  (´・ω・)ﾉ
