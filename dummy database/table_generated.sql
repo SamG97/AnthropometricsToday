@@ -9,10 +9,10 @@ CREATE TABLE public.generatedpeople
    "Sex" character varying(20),
    "Eye_Colour" character varying(20),
    "Hair_Colour" character varying(20),
-   -- all of the following measurement should be stored in mm
-   "Head_length" integer, 
-   "Face_breadth" integer,
-   "Face_iobreadth" integer, --interocular length
+   -- all of the following measurement should be stored in cm
+   "Head_length" real, 
+   "Face_breadth" real,
+   "Face_iobreadth" real, --interocular length
    id serial NOT NULL, --no need to generate as this field will be automatically generated upon import
    CONSTRAINT generatedpeoplestudentkey PRIMARY KEY (id)
 )
