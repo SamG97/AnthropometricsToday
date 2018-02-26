@@ -1,6 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
-import { analyseImage } from './requests/requestWrappers';
+import { history, analyseImage } from './requests/requestWrappers';
 import { ServerError } from './errors';
 
 export default class Camera extends React.Component {
@@ -96,7 +96,7 @@ export default class Camera extends React.Component {
         analyseImage(this.requestCompleted, data, this.requestFailed);
     }
 
-    requestCompleted = () => {
+    requestCompleted = (response) => {
         this.setState({
             freeze1: false,
             freeze2: false,
@@ -107,6 +107,9 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: true,
         });
+
+        // push to browser history
+        // history.push('/report/id/measurements(from response object)')
     }
 
     requestFailed = (err) => {
@@ -121,6 +124,9 @@ export default class Camera extends React.Component {
             analysing: false,
         })
     };
+
+    // alt prop for images
+    // check length of name
 
     render() {
         if (this.state.analysing) {
