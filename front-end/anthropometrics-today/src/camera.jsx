@@ -7,6 +7,7 @@ export default class Camera extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: null,
             freeze1: false,
             freeze2: false,
             retake1: false,
@@ -249,7 +250,7 @@ export default class Camera extends React.Component {
                             <form>
                                 <div className="form-row">
                                     <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                        <input type="email" className="form-control form-control-lg" placeholder="Enter your name here..." />
+                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" value={this.state.name} onChange={this.capture1} />
                                     </div>
                                     <div className="col-12 col-md-3">
                                         <button onClick={this.capture1} className="btn btn-block btn-lg btn-primary">
