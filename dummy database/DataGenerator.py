@@ -62,8 +62,8 @@ with open('fakedata.csv', 'w') as fw:
         # DoB_year= round(np.random.normal(75, 2))
         DataMeasured_year = random.randint(1889,1920)
 
-        prob = random.uniform(0,1)
-        if (prob>0.88):
+        prob = random.random()
+        if (prob<0.88):
             Age = random.randint(18,24)
         else:
             Age = random.randint(25,30)
