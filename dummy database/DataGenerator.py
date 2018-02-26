@@ -20,11 +20,11 @@ WomenWeights=[677/1761,524/1761,560/1761]
 
 
 
-with open('pre1897data.csv', 'w') as fw:
+with open('fakedata.csv', 'w') as fw:
     fw.write("DoB_month"+','+"DoB_day"+','+"DoB_year"+','+"Age"+','+"Name"+','+"College"+','+"Sex"+','+ "Eye_Colour"+','+
 "Hair_Colour"+','+"Head_length"+','+"Face_breadth"+','+"Face_iobreadth"+'\n' )
     
-    for _ in range(100):
+    for _ in range(10000):
         #Name, weighted for males and females
         chanceOfFemale=random.randint(1,100)
         Female=0
@@ -55,12 +55,21 @@ with open('pre1897data.csv', 'w') as fw:
             DoB_day=random.randint(1,30)
         else:
             DoB_day=random.randint(1,31)
-        DoB_year= round(np.random.normal(75, 2))
-        
 
-        #Age
-        Age=97-DoB_year
-        
+        # Assume this archive starts from 1889 and goes all the way up to 1920 and the youngest student possible will be 18
+        # Assume sample taken each year is consistent
+        # The maximum possible age in this database will be 30
+        # DoB_year= round(np.random.normal(75, 2))
+        DataMeasured_year = random.randint(1889,1920)
+
+        prob = random.uniform(0,1)
+        if (prob>0.88):
+            Age = random.randint(18,24)
+        else:
+            Age = random.randint(25,30)
+
+        DoB_year = DataMeasured_year - Age
+
 
         #Eyes/Hair
         Eyes=['light', 'medium', 'dark']
@@ -80,12 +89,13 @@ with open('pre1897data.csv', 'w') as fw:
             Head_length=round(np.random.normal(198.58, 5.7)/25.4,1)
             Face_breadth=round(np.random.normal(152.25, 5.15)/25.4,1)
             Face_iobreadth=round(np.random.normal(61.5, 3.8)/25.4,1)            
-        
+
+        Head_length = Head_length * 2.54
+        Face_breadth = Face_breadth * 2.54
+        Face_iobreadth = Face_iobreadth * 2.54
 
         
         data=str(DoB_month)+','+str(DoB_day)+','+str(DoB_year)+','+str(Age)+','+Name+','+College+','+Sex+','+ Eye_Colour+','+Hair_Colour+','+str(Head_length)+','+str(Face_breadth)+','+str(Face_iobreadth)
         fw.write(data)
         fw.write('\n')
 fw.close()
-
-
