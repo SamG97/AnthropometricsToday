@@ -1,7 +1,7 @@
 import React from 'react';
 import QRCode from 'qrcode.react';
 import { map } from 'lodash';
-import capitalise from '../utility/capitalise';
+import formatFieldName from '../utility/formatFieldName';
 import config from '../utility/config';
 import Spinner from '../utility/loading';
 import { ComparisonReportComponent, TwinReportComponent } from './reportComponents';
@@ -51,9 +51,9 @@ export default class Report extends React.Component {
     };
 
     generateTwinComponents = (field) => {
-        if (field === 'dob') {
-            const dob = this.state.twinMeasurements['dobd'] + '/' + this.state.twinMeasurements['dobm'] + '/' +
-                this.state.twinMeasurements['doby'];
+        if (field === 'DoB') {
+            const dob = this.state.twinMeasurements['DoB_day'] + '/' + this.state.twinMeasurements['DoB_month'] + '/' +
+                this.state.twinMeasurements['DoB_year'];
             return (
                 <TwinReportComponent
                     key={field}
@@ -69,7 +69,7 @@ export default class Report extends React.Component {
         return (
             <TwinReportComponent
                 key={field}
-                fieldName={capitalise(fieldName)}
+                fieldName={formatFieldName(fieldName)}
                 userValue={this.userMeasurements[field]}
                 twinValue={this.state.twinMeasurements[field]}
             />
@@ -78,12 +78,13 @@ export default class Report extends React.Component {
 
     generateComparisonComponent = (field) => {
         const isMeasurement = field !== 'name';
-        const fieldName = isMeasurement ? (field + ' width') : field;
+        const fieldName = (field === 'Face_iobreadth') ? 'inter_ocular_breadth' : field;
+        console.log(fieldName);
 
         return (
             <ComparisonReportComponent
                 key={field}
-                fieldName={capitalise(fieldName)}
+                fieldName={formatFieldName(fieldName)}
                 userValue={this.userMeasurements[field] + (isMeasurement ? ' cm' : '')}
                 twinValue={this.state.twinMeasurements[field] + (isMeasurement ? ' cm' : '')}
             />
@@ -142,7 +143,7 @@ export default class Report extends React.Component {
                     </div>
                     <div className="row">
                         <div className="intro col-12">
-                            Your historical twin is {this.twin['name']}! <br/>
+                            Your historical twin is {this.twin['Name']}! <br/>
                             Find out more about them and how you compare in your report below!
                         </div>
                     </div>
