@@ -7,7 +7,8 @@ export default class Camera extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: null,
+            username: null,
+            nameError: false,
             freeze1: false,
             freeze2: false,
             retake1: false,
@@ -23,9 +24,30 @@ export default class Camera extends React.Component {
         this.webcam = webcam;
     }
 
-    capture1 = () => {
+    capture1 = (event) => {
         const image = this.webcam.getScreenshot();
+
+        event.preventDefault();
+        if(!event.target.checkValidity()) {
+            this.setState({ nameError: true });
+            return;
+        }
+
+        const name = new FormData(event.target);
+
+        fetch('/', {
+            method: 'POST',
+            body: name,
+        });
+
+        if(name.length > 50) {
+            this.setState({ nameError: true });
+            return;
+        }
+
         this.setState({
+            username: name,
+            nameError: false,
             freeze1: true,
             freeze2: false,
             retake1: false,
@@ -99,6 +121,8 @@ export default class Camera extends React.Component {
 
     requestCompleted = (response) => {
         this.setState({
+            username: null,
+            nameError: false,
             freeze1: false,
             freeze2: false,
             retake1: false,
@@ -247,14 +271,14 @@ export default class Camera extends React.Component {
                         />
 
                         <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                            <form>
+                            <form onSubmit={this.capture1} noValidate className={this.state.nameError ? 'nameError' : ''}>
                                 <div className="form-row">
                                     <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" value={this.state.name} onChange={this.capture1} />
+                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" required/>
                                     </div>
                                     <div className="col-12 col-md-3">
-                                        <button onClick={this.capture1} className="btn btn-block btn-lg btn-primary">
-                                            Capture!
+                                        <button className="btn btn-block btn-lg btn-primary">
+                                            Start!
                                         </button>
                                     </div>
                                 </div>
