@@ -106,23 +106,14 @@ export default class Camera extends React.Component {
                 uri: this.state.photo1,
                 name: 'user_photo1.jpg',
                 type: 'image/jpg'
-            },
+            });
 
-            'user_photo2', {
+        data.append('user_photo2', {
                 uri: this.state.photo2,
                 name: 'user_photo2.jpg',
                 type: 'image/jpg'
             }
         );
-
-        fetch('/', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'multipart/form-data'
-            },
-            method: 'POST',
-            body: data
-        });
 
         analyseImage(this.requestCompleted, data);
     }
@@ -219,6 +210,7 @@ export default class Camera extends React.Component {
                             <Webcam
                                 audio={false}
                                 ref={node => this.webcam = node}
+                                screenshotFormat="image/jpeg"
                             />
 
                             <div className="container text-center">
@@ -243,6 +235,7 @@ export default class Camera extends React.Component {
                             <Webcam
                                 audio={false}
                                 ref={node => this.webcam = node}
+                                screenshotFormat="image/jpeg"
                             />
 
                             <div className="container text-center">
@@ -266,6 +259,7 @@ export default class Camera extends React.Component {
                         <Webcam
                             audio={false}
                             ref={node => this.webcam = node}
+                            screenshotFormat="image/jpeg"
                         />
 
                         <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
