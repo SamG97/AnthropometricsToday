@@ -1,6 +1,7 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import { history, analyseImage } from './requests/requestWrappers';
+import { compress } from './utility/urlCompress';
 
 export default class Camera extends React.Component {
     constructor(props) {
@@ -119,20 +120,7 @@ export default class Camera extends React.Component {
     }
 
     requestCompleted = (response) => {
-        history.push('/report/' + response.body);
-
-        this.setState({
-            username: null,
-            nameError: false,
-            freeze1: false,
-            freeze2: false,
-            retake1: false,
-            retake2: false,
-            photo1: null,
-            photo2: null,
-            analysing: false,
-            analyseFailed: true,
-        });
+        history.push('/report/' + response.id + "/" + compress(this.state.username, [response.Face_breadth, response.Face_iobreadth, response.Head_length]) );
     }
 
     // alt prop for images
