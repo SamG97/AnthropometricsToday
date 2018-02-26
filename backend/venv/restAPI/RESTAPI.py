@@ -39,11 +39,11 @@ def nearestNeigbour(studentList, node):
                     'Face_breadth':node[1],
                     'Head_length':node[2]})
 
-#@app.route('/image_to_student', methods=['POST'])
-#def getNearestStudent():
-#    dimensions = proccessImage(request.json['body']['image1']['uri'], request.json['body']['image2']['uri'])
-#    studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
-#    return nearestNeigbour(studentList, dimensions)
+@app.route('/image_to_student', methods=['POST'])
+def getNearestStudent():
+    dimensions = proccessImage(request.json['body']['image1']['uri'], request.json['body']['image2']['uri'])
+    studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
+    return nearestNeigbour(studentList, dimensions)
 
 if __name__ == '__main__':
     app.run(port=5002)
