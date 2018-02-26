@@ -155,7 +155,7 @@ export default class Camera extends React.Component {
                             <h2>Anthropometrics Today</h2>
                             <p className="text-muted">Take a picture from the front.</p>
 
-                            {this.state.photo1 ? <img src={this.state.photo1} /> : null}
+                            {this.state.photo1 ? <img src={this.state.photo1} alt="from the front"/> : null}
                             <p className="text-muted">This is your picture from the front.</p>
 
                             <div className="container text-center">
@@ -181,7 +181,7 @@ export default class Camera extends React.Component {
                             <h2>Anthropometrics Today</h2>
                             <p className="text-muted">Take a picture from the side.</p>
 
-                            {this.state.photo2 ? <img src={this.state.photo2} /> : null}
+                            {this.state.photo2 ? <img alt="from the front" src={this.state.photo2} /> : null}
                             <p className="text-muted">This is your picture from the side.</p>
 
                             <div className="container text-center">
