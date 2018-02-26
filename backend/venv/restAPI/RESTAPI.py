@@ -2,7 +2,7 @@ from flask import Flask, request, make_response, abort
 from flask_jsonpify import jsonify
 from restAPI.DataBaseScript import getPersonDataById, getClosestRecordSet, ReturnObjects
 from restAPI.NearestNeigbour import calcNearestNeigbour
-from restAPI.headMeasure import proccessImage
+#from restAPI.headMeasure import proccessImage
 
 app = Flask(__name__)
 
@@ -22,17 +22,28 @@ def get_Student(student_id):
     student = {data[i][0] : data[i][1] for i in range(len(data))}
     return jsonify(student)
 
-def nearestNeigbour(studentList, node):
-    students = [{studentList.get()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
-                for j in range(len(studentList.getall()))]
-    dists = [[students[i]['Head_length'], students[i]['Face_breadth'], students[i]['Face_iobreadth']] for i in range(len(students))]
-    return jsonify({'id':students[calcNearestNeigbour(dists)]['id']})
+def processStudents(studentList):
+    [{studentList.getall()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
+     for j in range(len(studentList.getall()))]
 
-@app.route('/image_to_student', methods=['POST'])
-def getNearestStudent():
-    dimensions = proccessImage(request.json['body']['image1']['uri'], request.json['body']['image2']['uri'])
-    studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
-    return nearestNeigbour(studentList, dimensions)
+def getDists(students):
+   return [[students[i]['Face_iobreadth'], students[i]['Face_breadth'], students[i]['Head_length']] for i in
+     range(len(students))]
+
+def nearestNeigbour(studentList, node):
+    students = processStudents()
+    dists = getDists()
+    index = calcNearestNeigbour(node, dists)
+    return jsonify({'id':students[index]['id'],
+                    'Face_iobreadth':node[0],
+                    'Face_breadth':node[1],
+                    'Head_length':node[2]})
+
+#@app.route('/image_to_student', methods=['POST'])
+#def getNearestStudent():
+#    dimensions = proccessImage(request.json['body']['image1']['uri'], request.json['body']['image2']['uri'])
+#    studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
+#    return nearestNeigbour(studentList, dimensions)
 
 if __name__ == '__main__':
     app.run(port=5002)

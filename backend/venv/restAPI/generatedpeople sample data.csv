@@ -1,7 +1,7 @@
-DoB_month,DoB_day,DoB_year,Age,Name,College,Sex,Skin_Colour,Eye_Colour,Hair_Colour,Head_length,Face_breadth,Face_iobreadth
-1,15,66,21,E.X. Data1,Clare,,,,,190,,
-9,12,62,24,E.X. Data2,Caius,,,,,175,,
-11,29,66,20,E.X. Data3,Christ's,,,,,195,,
-,,,32,E.X. Data4,S. John's,,,2,4.5,203,135,22
-,,,19,E.X. Data5,Sidney,,,2,2,201,,
-,,,19,E.X. Data6,Visitor,,,3,3,189,136,19
+DoB_month,DoB_day,DoB_year,Age,Name,College,Sex,Eye_Colour,Hair_Colour,Head_length,Face_breadth,Face_iobreadth
+1,15,66,21,E.X. Data1,Clare,,,,190,,
+9,12,62,24,E.X. Data2,Caius,,,,175,,
+11,29,66,20,E.X. Data3,Christ's,,,,195,,
+,,,32,E.X. Data4,S. John's,,2,4.5,203,135,22
+,,,19,E.X. Data5,Sidney,,2,2,201,,
+,,,19,E.X. Data6,Visitor,,3,3,189,136,19

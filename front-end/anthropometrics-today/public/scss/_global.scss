@@ -1,89 +1,52 @@
-body,
-html {
-  width: 100%;
-  height: 100%;
+// Global styling for this template
+html,
+body {
+    width: 100%;
+    height: 100%;
 }
 
 body {
-  @include body-font;
+    @include body-font;
 }
 
-// Custom Button Size
-.btn-xl {
-  padding: 1.25rem 2.5rem;
+a {
+    color: $theme-primary;
+    @include transition-all;
+    &:hover,
+    &:focus {
+        color: darken($theme-primary, 10%);
+    }
 }
 
-// Content Section
-.content-section {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem;
+hr {
+    max-width: 100px;
+    margin: 25px auto 0;
+    border-width: 1px;
+    border-color: fade-out($gray-darker, .9);
 }
 
-.content-section-heading {
-  h2 {
-    font-size: 3rem;
-  }
-  h3 {
-    font-size: 1rem;
-    text-transform: uppercase;
-  }
+hr.light {
+    border-color: white;
 }
 
-// Typography
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
+    @include heading-font;
 }
 
-.text-faded {
-  color: fade-out($white, 0.3);
+p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
 }
 
-/* Map */
-
-.map {
-  height: 30rem;
-}
-
-@media(max-width: 992px) {
-  .map {
-    height: 75%;
-  }
-}
-
-.map iframe {
-  pointer-events: none;
-}
-
-// Scroll to top button
-.scroll-to-top {
-  position: fixed;
-  right: 15px;
-  bottom: 15px;
-
-  display: none;
-
-  width: 50px;
-  height: 50px;
-
-  text-align: center;
-
-  color: white;
-  background: fade-out($gray-800, .5);
-
-  line-height: 45px;
-  &:focus,
-  &:hover {
-    color: white;
-  }
-  &:hover {
-    background: $gray-800;
-  }
-  i {
-    font-weight: 800;
-  }
+section {
+    padding: 100px 0;
+    h2 {
+        font-size: 50px;
+    }
 }
