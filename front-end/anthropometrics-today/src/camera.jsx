@@ -1,7 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import { history, analyseImage } from './requests/requestWrappers';
-import { ServerError } from './errors';
 
 export default class Camera extends React.Component {
     constructor(props) {
@@ -27,12 +26,12 @@ export default class Camera extends React.Component {
     capture1 = (event) => {
         const image = this.webcam.getScreenshot();
 
-        event.preventDefault();
         if(!event.target.checkValidity()) {
             this.setState({ nameError: true });
             return;
         }
 
+        event.preventDefault();
         const name = new FormData(event.target);
 
         fetch('/', {
@@ -120,6 +119,8 @@ export default class Camera extends React.Component {
     }
 
     requestCompleted = (response) => {
+        history.push('/report/' + response.body);
+
         this.setState({
             username: null,
             nameError: false,
@@ -132,14 +133,9 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: true,
         });
-
-        // push to browser history
-        // name state
-        // history.push('/report/id/measurements(from response object)')
     }
 
     // alt prop for images
-    // check length of name and set state
 
     // possibly add a timer
 
@@ -149,12 +145,6 @@ export default class Camera extends React.Component {
                 <div className="container text-center">
                     <h1>Analysing Photo!</h1>
                 </div>
-            );
-        }
-
-        if (this.state.analyseFailed) {
-            return (
-                <ServerError />
             );
         }
 
