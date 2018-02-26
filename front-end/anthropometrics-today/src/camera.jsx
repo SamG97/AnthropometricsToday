@@ -26,7 +26,7 @@ export default class Camera extends React.Component {
     capture1 = (event) => {
         const image = this.webcam.getScreenshot();
 
-        if(!event.target.checkValidity()) {
+        if (!event.target.checkValidity()) {
             this.setState({ nameError: true });
             return;
         }
@@ -39,7 +39,7 @@ export default class Camera extends React.Component {
             body: name,
         });
 
-        if(name.length > 50) {
+        if (name.length > 50) {
             this.setState({ nameError: true });
             return;
         }
@@ -115,6 +115,15 @@ export default class Camera extends React.Component {
             }
         );
 
+        fetch('/', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data'
+            },
+            method: 'POST',
+            body: data
+        });
+
         analyseImage(this.requestCompleted, data);
     }
 
@@ -136,7 +145,6 @@ export default class Camera extends React.Component {
     }
 
     // alt prop for images
-
     // possibly add a timer
 
     render() {
@@ -264,7 +272,7 @@ export default class Camera extends React.Component {
                             <form onSubmit={this.capture1} noValidate className={this.state.nameError ? 'nameError' : ''}>
                                 <div className="form-row">
                                     <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" required/>
+                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" required />
                                     </div>
                                     <div className="col-12 col-md-3">
                                         <button className="btn btn-block btn-lg btn-primary">
