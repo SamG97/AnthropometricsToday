@@ -10,6 +10,7 @@ const makeRequest = (url, callback, errCallback, body) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
+                'Access-Control-Allow-Origin': '*',
             },
             body: body,
         });

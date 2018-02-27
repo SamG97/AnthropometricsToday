@@ -6,8 +6,8 @@ const config = {
 
     webBaseUrl: 'http://localhost:3000',
 
-    fieldOrdering: ['name', 'profile', 'face', 'ocular'],
-    twinOrdering: ['name', 'sex', 'dob', 'college', 'hair', 'eye']
+    fieldOrdering: ['Name', 'Face_breadth', 'Face_iobreadth', 'Head_length'],
+    twinOrdering: ['Name', 'Age', 'DoB', 'College', 'Hair_Colour', 'Eye_Colour', 'Sex']
 };
 
 export default config;

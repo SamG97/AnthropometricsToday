@@ -1,12 +1,14 @@
 import React from 'react';
 import Webcam from 'react-webcam';
-import { analyseImage } from './requests/requestWrappers';
-import { ServerError } from './errors';
+import { history, analyseImage } from './requests/requestWrappers';
+import { compress } from './utility/urlCompress';
 
 export default class Camera extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: null,
+            nameError: false,
             freeze1: false,
             freeze2: false,
             retake1: false,
@@ -22,9 +24,30 @@ export default class Camera extends React.Component {
         this.webcam = webcam;
     }
 
-    capture1 = () => {
+    capture1 = (event) => {
         const image = this.webcam.getScreenshot();
+
+        if (!event.target.checkValidity()) {
+            this.setState({ nameError: true });
+            return;
+        }
+
+        event.preventDefault();
+        const name = new FormData(event.target);
+
+        fetch('/', {
+            method: 'POST',
+            body: name,
+        });
+
+        if (name.length > 50) {
+            this.setState({ nameError: true });
+            return;
+        }
+
         this.setState({
+            username: name,
+            nameError: false,
             freeze1: true,
             freeze2: false,
             retake1: false,
@@ -84,76 +107,51 @@ export default class Camera extends React.Component {
                 uri: this.state.photo1,
                 name: 'user_photo1.jpg',
                 type: 'image/jpg'
-            },
+            });
 
-            'user_photo2', {
+        data.append('user_photo2', {
                 uri: this.state.photo2,
                 name: 'user_photo2.jpg',
                 type: 'image/jpg'
             }
         );
 
-        analyseImage(this.requestCompleted, data, this.requestFailed);
+        analyseImage(this.requestCompleted, data);
     }
 
-    requestCompleted = () => {
-        this.setState({
-            freeze1: false,
-            freeze2: false,
-            retake1: false,
-            retake2: false,
-            photo1: null,
-            photo2: null,
-            analysing: false,
-            analyseFailed: true,
-        });
+    requestCompleted = (response) => {
+        history.push('/report/' + response.id + "/" + compress(this.state.username, [response.Face_breadth, response.Face_iobreadth, response.Head_length]) );
     }
 
-    requestFailed = (err) => {
-        console.log('Request failed with error:\n' + err);
-        this.setState({
-            freeze1: false,
-            freeze2: false,
-            retake1: false,
-            retake2: false,
-            photo1: null,
-            photo2: null,
-            analysing: false,
-        })
-    };
+    // alt prop for images
+    // possibly add a timer
 
     render() {
         if (this.state.analysing) {
             return (
-                <div class="container text-center">
+                <div className="container text-center">
                     <h1>Analysing Photo!</h1>
                 </div>
             );
         }
 
-        if (this.state.analyseFailed) {
-            return (
-                <ServerError />
-            );
-        }
-
         if (this.state.freeze1) {
             return (
-                <section class="features" id="features">
-                    <div class="container">
-                        <div class="section-heading text-center">
+                <section className="features" id="features">
+                    <div className="container">
+                        <div className="section-heading text-center">
                             <h2>Anthropometrics Today</h2>
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae malesuada odio.</p>
+                            <p className="text-muted">Take a picture from the front.</p>
 
-                            {this.state.photo1 ? <img src={this.state.photo1} /> : null}
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae malesuada odio.</p>
+                            {this.state.photo1 ? <img src={this.state.photo1} alt="from the front"/> : null}
+                            <p className="text-muted">This is your picture from the front.</p>
 
-                            <div class="container text-center">
-                                <button onClick={this.clear1} class="btn btn-xl btn-light mr-4">
+                            <div className="container text-center">
+                                <button onClick={this.clear1} className="btn btn-xl btn-light mr-4">
                                     Retake
                                 </button>
 
-                                <button onClick={this.clear2} class="btn btn-xl btn-dark">
+                                <button onClick={this.clear2} className="btn btn-xl btn-dark">
                                     Next Step
                                 </button>
                             </div>
@@ -165,21 +163,21 @@ export default class Camera extends React.Component {
 
         if (this.state.freeze2) {
             return (
-                <section class="features" id="features">
-                    <div class="container">
-                        <div class="section-heading text-center">
+                <section className="features" id="features">
+                    <div className="container">
+                        <div className="section-heading text-center">
                             <h2>Anthropometrics Today</h2>
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae malesuada odio.</p>
+                            <p className="text-muted">Take a picture from the side.</p>
 
-                            {this.state.photo2 ? <img src={this.state.photo2} /> : null}
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae malesuada odio.</p>
+                            {this.state.photo2 ? <img alt="from the front" src={this.state.photo2} /> : null}
+                            <p className="text-muted">This is your picture from the side.</p>
 
-                            <div class="container text-center">
-                                <button onClick={this.clear2} class="btn btn-xl btn-light mr-4">
+                            <div className="container text-center">
+                                <button onClick={this.clear2} className="btn btn-xl btn-light mr-4">
                                     Retake
                             </button>
 
-                                <button onClick={this.analyse} class="btn btn-xl btn-dark">
+                                <button onClick={this.analyse} className="btn btn-xl btn-dark">
                                     Get Result
                             </button>
                             </div>
@@ -191,19 +189,20 @@ export default class Camera extends React.Component {
 
         if (this.state.retake1) {
             return (
-                <section class="features" id="features">
-                    <div class="container">
-                        <div class="section-heading text-center">
+                <section className="features" id="features">
+                    <div className="container">
+                        <div className="section-heading text-center">
                             <h2>Anthropometrics Today</h2>
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae malesuada odio.</p>
+                            <p className="text-muted">Take a picture from the front.</p>
 
                             <Webcam
                                 audio={false}
                                 ref={node => this.webcam = node}
+                                screenshotFormat="image/jpeg"
                             />
 
-                            <div class="container text-center">
-                                <button onClick={this.capture1} class="btn btn-xl btn-light mr-4">
+                            <div className="container text-center">
+                                <button onClick={this.capture1} className="btn btn-xl btn-light mr-4">
                                     Capture
                                 </button>
                             </div>
@@ -215,19 +214,20 @@ export default class Camera extends React.Component {
 
         if (this.state.retake2) {
             return (
-                <section class="features" id="features">
-                    <div class="container">
-                        <div class="section-heading text-center">
+                <section className="features" id="features">
+                    <div className="container">
+                        <div className="section-heading text-center">
                             <h2>Anthropometrics Today</h2>
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae malesuada odio.</p>
+                            <p className="text-muted">Take a picture from the side.</p>
 
                             <Webcam
                                 audio={false}
                                 ref={node => this.webcam = node}
+                                screenshotFormat="image/jpeg"
                             />
 
-                            <div class="container text-center">
-                                <button onClick={this.capture2} class="btn btn-xl btn-light mr-4">
+                            <div className="container text-center">
+                                <button onClick={this.capture2} className="btn btn-xl btn-light mr-4">
                                     Capture
                                 </button>
                             </div>
@@ -238,26 +238,27 @@ export default class Camera extends React.Component {
         }
 
         return (
-            <section class="features" id="features">
-                <div class="container">
-                    <div class="section-heading text-center">
+            <section className="features" id="features">
+                <div className="container">
+                    <div className="section-heading text-center">
                         <h2>Anthropometrics Today</h2>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae malesuada odio.</p>
+                        <p className="text-muted">Take two pictures respectively of your front and side and get to know your historical twin.</p>
 
                         <Webcam
                             audio={false}
                             ref={node => this.webcam = node}
+                            screenshotFormat="image/jpeg"
                         />
 
-                        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                            <form>
-                                <div class="form-row">
-                                    <div class="col-12 col-md-9 mb-2 mb-md-0">
-                                        <input type="email" class="form-control form-control-lg" placeholder="Enter your name here..." />
+                        <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                            <form onSubmit={this.capture1} noValidate className={this.state.nameError ? 'nameError' : ''}>
+                                <div className="form-row">
+                                    <div className="col-12 col-md-9 mb-2 mb-md-0">
+                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" required />
                                     </div>
-                                    <div class="col-12 col-md-3">
-                                        <button onClick={this.capture1} class="btn btn-block btn-lg btn-primary">
-                                            Capture!
+                                    <div className="col-12 col-md-3">
+                                        <button className="btn btn-block btn-lg btn-primary">
+                                            Start!
                                         </button>
                                     </div>
                                 </div>
