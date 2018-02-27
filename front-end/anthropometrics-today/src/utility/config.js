@@ -1,8 +1,8 @@
 const config = {
     // TODO: Replace with real URLs
-    baseUrl: 'https://jsonplaceholder.typicode.com',
-    historicSuffix: '/posts',
-    analysisSuffix: '/posts',
+    baseUrl: 'http://localhost:5002',
+    historicSuffix: '/student',
+    analysisSuffix: '/image_to_student',
 
     webBaseUrl: 'http://localhost:3000',
 
