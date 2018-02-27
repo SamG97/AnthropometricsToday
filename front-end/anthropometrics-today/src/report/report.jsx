@@ -77,7 +77,7 @@ export default class Report extends React.Component {
     };
 
     generateComparisonComponent = (field) => {
-        const isMeasurement = field !== 'name';
+        const isMeasurement = field !== 'Name';
         const fieldName = (field === 'Face_iobreadth') ? 'inter_ocular_breadth' : field;
         console.log(fieldName);
 

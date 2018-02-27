@@ -34,11 +34,7 @@ export default class Camera extends React.Component {
 
         event.preventDefault();
         const name = new FormData(event.target);
-
-        fetch('/', {
-            method: 'POST',
-            body: name,
-        });
+        console.log(name);
 
         if (name.length > 50) {
             this.setState({ nameError: true });
