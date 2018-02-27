@@ -8,6 +8,7 @@ from functools import update_wrapper
 import base64
 
 app = Flask(__name__)
+lastID = [-1]
 
 def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
                 attach_to_all=True, automatic_options=True):
@@ -77,13 +78,24 @@ def get_Student(student_id):
     student = {data[i][0] : data[i][1] for i in range(len(data))}
     return jsonify(student)
 
+def getLastIDIndex(students):
+    i = 0
+    while i < len(students) and students[i]['id'] != lastID[0]:
+        i += 1
+    return i
+
 def nearestNeigbour(studentList, node):
     students = [{studentList.getall()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
                  for j in range(len(studentList.getall()))]
+    if(len(students) > 1):
+        i = getLastIDIndex(students)
+        if (i < len(students)):
+            students.remove(students[i])
     dists = [[students[i]['Face_iobreadth'], students[i]['Face_breadth'], students[i]['Head_length']] for i in
               range(len(students))]
     index = calcNearestNeigbour(node, dists)
-    return jsonify({'id':students[index]['id'],
+    lastID[0] = students[index]['id']
+    return jsonify({'id': lastID[0],
                     'Face_iobreadth':node[0],
                     'Face_breadth':node[1],
                     'Head_length':node[2]})
@@ -102,7 +114,7 @@ def getNearestStudent():
 #   dimensions = proccessImage("sideShot.png", "frontShot.png")
     dimensions = [100,100,100]
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
-    return  nearestNeigbour(studentList, dimensions)
+    return nearestNeigbour(studentList, dimensions)
 
 if __name__ == '__main__':
     app.run(port=5002)
