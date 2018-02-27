@@ -95,8 +95,8 @@ def base64ToFile(fileName, img_data):
 @app.route('/image_to_student', methods=['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def getNearestStudent():
-    sideShot = request.json['body']['image1']['data']
-    frontShot = request.json['body']['image2']['data']
+    sideShot = request.json['body']['user_photo1']['uri']
+    frontShot = request.json['body']['user_photo1']['uri']
     base64ToFile("sideShot.png", sideShot)
     base64ToFile("frontShot.png", frontShot)
 #   dimensions = proccessImage("sideShot.png", "frontShot.png")
