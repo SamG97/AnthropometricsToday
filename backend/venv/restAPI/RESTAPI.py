@@ -95,13 +95,14 @@ def base64ToFile(fileName, img_data):
 @app.route('/image_to_student', methods=['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def getNearestStudent():
-    sideShot = request.json['body']['user_photo1']['uri'] #may also need to remove the header from this
-    frontShot = request.json['body']['user_photo1']['uri']
-    base64ToFile("sideShot.png", sideShot)
-    base64ToFile("frontShot.png", frontShot)
+#   sideShot = request.json['body']['user_photo1']['uri'] #may also need to remove the header from this
+#   frontShot = request.json['body']['user_photo1']['uri']
+#   base64ToFile("sideShot.png", sideShot)
+#   base64ToFile("frontShot.png", frontShot)
 #   dimensions = proccessImage("sideShot.png", "frontShot.png")
-#   studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
-    return  jsonify({'test': True})#nearestNeigbour(studentList, dimensions)
+    dimensions = [100,100,100]
+    studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
+    return  nearestNeigbour(studentList, dimensions)
 
 if __name__ == '__main__':
     app.run(port=5002)
