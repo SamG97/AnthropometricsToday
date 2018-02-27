@@ -7,7 +7,7 @@ export default class Camera extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
+            username: '',
             nameError: false,
             freeze1: false,
             freeze2: false,
@@ -18,32 +18,32 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: false,
         };
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     setRef = (webcam) => {
         this.webcam = webcam;
     }
 
-    capture1 = (event) => {
+    handleChange(event) {
+        this.setState({
+            username: event.target.value,
+        });
+    }
+
+    capture1 = () => {
         const image = this.webcam.getScreenshot();
 
-        if (!event.target.checkValidity()) {
-            this.setState({ nameError: true });
-            return;
-        }
-
-        event.preventDefault();
-        const name = new FormData(event.target);
-        console.log(name);
-
-        if (name.length > 50) {
-            this.setState({ nameError: true });
-            return;
+        console.log('Username submitted: ' + this.state.username);
+        if (this.state.username.length > 50) {
+            this.setState({
+                username: '',
+                nameError: true,
+            });
         }
 
         this.setState({
-            username: name,
-            nameError: false,
             freeze1: true,
             freeze2: false,
             retake1: false,
@@ -106,21 +106,18 @@ export default class Camera extends React.Component {
             });
 
         data.append('user_photo2', {
-                uri: this.state.photo2,
-                name: 'user_photo2.jpg',
-                type: 'image/jpg'
-            }
+            uri: this.state.photo2,
+            name: 'user_photo2.jpg',
+            type: 'image/jpg'
+        }
         );
 
         analyseImage(this.requestCompleted, data);
     }
 
     requestCompleted = (response) => {
-        history.push('/report/' + response.id + "/" + compress(this.state.username, [response.Face_breadth, response.Face_iobreadth, response.Head_length]) );
+        history.push('/report/' + response.id + "/" + compress(this.state.username, [response.Face_breadth, response.Face_iobreadth, response.Head_length]));
     }
-
-    // alt prop for images
-    // possibly add a timer
 
     render() {
         if (this.state.analysing) {
@@ -139,7 +136,7 @@ export default class Camera extends React.Component {
                             <h2>Anthropometrics Today</h2>
                             <p className="text-muted">Take a picture from the front.</p>
 
-                            {this.state.photo1 ? <img src={this.state.photo1} alt="from the front"/> : null}
+                            {this.state.photo1 ? <img src={this.state.photo1} alt="from the front" /> : null}
                             <p className="text-muted">This is your picture from the front.</p>
 
                             <div className="container text-center">
@@ -247,13 +244,13 @@ export default class Camera extends React.Component {
                         />
 
                         <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                            <form onSubmit={this.capture1} noValidate className={this.state.nameError ? 'nameError' : ''}>
+                            <form noValidate className={this.state.nameError ? 'nameError' : ''}>
                                 <div className="form-row">
                                     <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" required />
+                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" value={this.state.username} onChange={this.handleChange} required />
                                     </div>
                                     <div className="col-12 col-md-3">
-                                        <button className="btn btn-block btn-lg btn-primary">
+                                        <button onClick={this.capture1} className="btn btn-block btn-lg btn-primary">
                                             Start!
                                         </button>
                                     </div>
