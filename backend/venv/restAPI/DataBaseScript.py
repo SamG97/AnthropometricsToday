@@ -102,6 +102,7 @@ FROM students_pre_1897
 WHERE TRUE """
            if (headlength>0):
                string1 = string1 + """ AND (("Head_length" < """
+               # units in the db is inches
                string1 = string1 + str((headlength+delta)/2.54)
                string1 = string1 + """ AND "Head_length" > """
                string1 = string1 + str((headlength-delta)/2.54)
@@ -122,6 +123,7 @@ FROM students_post_1897
 WHERE TRUE """
         if (headlength>0):
             string1 = string1 + """ AND (("Head_length" < """
+            # units in the db is mm
             string1 = string1 + str((headlength+delta)*10)
             string1 = string1 + """ AND "Head_length" > """
             string1 = string1 + str((headlength-delta)*10)
@@ -285,6 +287,7 @@ FROM generatedpeople
 
 #New method that does the same thing as above, except only for the dedicated table for generation:
 #Returns None if nothing found in the database.
+#Should pass unit as cm
 def getClosestRecordSet(headlength, interocular, facewidth):
     if (headlength <= 0 and interocular <= 0 and facewidth <= 0):
         return None
@@ -298,21 +301,21 @@ def getClosestRecordSet(headlength, interocular, facewidth):
     WHERE TRUE """
         if (headlength > 0):
             string1 = string1 + """ AND (("Head_length" < """
-            string1 = string1 + str((headlength + delta) * 10)
+            string1 = string1 + str(headlength + delta)
             string1 = string1 + """ AND "Head_length" > """
-            string1 = string1 + str((headlength - delta) * 10)
+            string1 = string1 + str(headlength - delta)
             string1 = string1 + """ ) OR ("Head_length" is NULL))"""
         if (interocular > 0):
             string1 = string1 + """ AND (("Face_iobreadth" < """
-            string1 = string1 + str((interocular + delta) * 10)
+            string1 = string1 + str(interocular + delta)
             string1 = string1 + """ AND "Face_iobreadth" > """
-            string1 = string1 + str((interocular - delta) * 10)
+            string1 = string1 + str(interocular - delta)
             string1 = string1 + """ ) OR ("Face_iobreadth" is NULL))"""
         if (facewidth < 0):
             string1 = string1 + """ AND "Face_breadth" < """
-            string1 = string1 + str((facewidth + delta) * 10)
+            string1 = string1 + str(facewidth + delta)
             string1 = string1 + """ AND "Face_breadth" > """
-            string1 = string1 + str((facewidth - delta) * 10)
+            string1 = string1 + str(facewidth - delta)
             string1 = string1 + """ ) OR ("Face_breadth" is NULL))"""
         cur.execute(string1)
         newrows = cur.fetchall()
@@ -377,7 +380,7 @@ def getClosestRecordSet(headlength, interocular, facewidth):
 #k=getAllMeasurements()
 #print(k.data)
 
-#k=getClosestRecordSet(21.3,2.8,16)
+#k=getClosestRecordSet(21.3,6,13)
 #print(k.data)
 #print(k.get(0))
 #print(getPersonDataById(1))
