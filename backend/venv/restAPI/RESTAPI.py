@@ -112,7 +112,6 @@ def getNearestStudent():
     base64ToFile("sideShot.png", sideShot)
     base64ToFile("frontShot.png", frontShot)
     dimensions = proccessImage("sideShot.png", "frontShot.png")
-#   dimensions = [100,100,100]
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
     return nearestNeigbour(studentList, dimensions)
 
