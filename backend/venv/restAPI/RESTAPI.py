@@ -6,6 +6,7 @@ from restAPI.headMeasure import proccessImage
 from datetime import timedelta
 from functools import update_wrapper
 import base64
+import os
 
 app = Flask(__name__)
 lastID = [-1]
@@ -111,7 +112,7 @@ def getNearestStudent():
     frontShot = request.json['body']['user_photo1']['uri']
     base64ToFile("sideShot.png", sideShot)
     base64ToFile("frontShot.png", frontShot)
-    dimensions = proccessImage("sideShot.png", "frontShot.png")
+    dimensions = proccessImage(os.path.abspath("sideShot.png"), os.path.abspath("frontShot.png"))
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
     return nearestNeigbour(studentList, dimensions)
 
