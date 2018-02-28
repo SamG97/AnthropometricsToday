@@ -2,7 +2,7 @@ from flask import Flask, request, make_response, abort
 from flask_jsonpify import jsonify
 from restAPI.DataBaseScript import getPersonDataById, getClosestRecordSet, ReturnObjects
 from restAPI.NearestNeigbour import calcNearestNeigbour
-#from restAPI.headMeasure import proccessImage
+from restAPI.headMeasure import proccessImage
 from datetime import timedelta
 from functools import update_wrapper
 import base64
@@ -107,12 +107,12 @@ def base64ToFile(fileName, img_data):
 @app.route('/image_to_student', methods=['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def getNearestStudent():
-#   sideShot = request.json['body']['user_photo1']['uri'] #may also need to remove the header from this
-#   frontShot = request.json['body']['user_photo1']['uri']
-#   base64ToFile("sideShot.png", sideShot)
-#   base64ToFile("frontShot.png", frontShot)
-#   dimensions = proccessImage("sideShot.png", "frontShot.png")
-    dimensions = [100,100,100]
+    sideShot = request.json['body']['user_photo1']['uri'] #may also need to remove the header from this
+    frontShot = request.json['body']['user_photo1']['uri']
+    base64ToFile("sideShot.png", sideShot)
+    base64ToFile("frontShot.png", frontShot)
+    dimensions = proccessImage("sideShot.png", "frontShot.png")
+#   dimensions = [100,100,100]
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
     return nearestNeigbour(studentList, dimensions)
 
