@@ -1,5 +1,5 @@
 import numpy as np
-from restAPI.DataBaseScript import getAllMeasurements
+from DataBaseScript import getAllMeasurements
 
 
 def discardNone(a):
