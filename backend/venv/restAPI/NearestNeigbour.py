@@ -1,5 +1,5 @@
 import numpy as np
-from restAPI.DataBaseScript import getAllMeasurements
+from DataBaseScript import getAllMeasurements
 
 
 def discardNone(a):
@@ -16,10 +16,10 @@ def discardNone(a):
 studentList = getAllMeasurements()
 students = [{studentList.getall()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
            for j in range(len(studentList.getall()))]
-dists = np.array(discardNone([[students[i]['Face_iobreadth'], students[i]['Face_breadth'], students[i]['Head_length']] for i in
+alldists = np.array(discardNone([[students[i]['Face_iobreadth'], students[i]['Face_breadth'], students[i]['Head_length']] for i in
         range(len(students))]))
 
-elipseMatrix = np.cov(dists, rowvar=False)
+elipseMatrix = np.cov(alldists, rowvar=False)
 
 try:
     elipseMatrix = np.linalg.inv(elipseMatrix)
@@ -31,13 +31,13 @@ def calcDist(a, b):
     return np.sqrt(np.dot(np.dot(np.transpose(ab),elipseMatrix), ab))
 
 def sigmoid(x):
-    return 1/(1+np.exp(-x))
+    return np.exp(x)/(1+np.exp(x))
 
 def getIndex(dists):
     sum = 0
     for i in range(len(dists)):
-        sum += 1-sigmoid(dists[i])
-    probs = [(1-sigmoid(dists[i]))/sum for i in range(len(dists))]
+        sum += dists[i]
+    probs = [dists[i]/sum for i in range(len(dists))]
     return np.random.choice(range(len(dists)), 1,  p = list(probs))[0]
 
 def calcNearestNeigbour(node, points):

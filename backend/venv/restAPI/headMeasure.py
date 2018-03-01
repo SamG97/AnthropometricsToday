@@ -31,8 +31,9 @@ def getOcularWidth(image_path):
         right_avg = get_average_x(right_eye_points)
 
         ocularWidthOfAllFacesPresent += [(right_avg - left_avg) * cmPerPixel]
-
-    return max(ocularWidthOfAllFacesPresent)
+    result = max(ocularWidthOfAllFacesPresent)
+    print("measured occular width as: " + str(result))
+    return result
 
 #can use relative or full file path
 def getFaceWidth(image_path):
@@ -54,8 +55,10 @@ def getFaceWidth(image_path):
         for (x, y) in points:
             x_points += [x]
         widthOfAllFacesPresent += [(max(x_points) - min(x_points)) * cmPerPixel]
-
-    return max(widthOfAllFacesPresent)
+    
+    result = max(widthOfAllFacesPresent)
+    print("measured face width as: " + str(result))
+    return result
 
 #needs full file path
 def getHeadLength(image_path):
@@ -73,7 +76,9 @@ def getHeadLength(image_path):
             current_consecutive_falses = 0
         else:
             current_consecutive_falses += 1
-    return most_consecutive_falses * cmPerPixel
+    result = most_consecutive_falses * cmPerPixel
+    print("measured profile length as: " + str(result))
+    return result
 
 def getThresholdImage(image_path):
     color_input = data.load(image_path)
