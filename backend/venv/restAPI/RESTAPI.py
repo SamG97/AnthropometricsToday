@@ -9,8 +9,6 @@ import json
 import base64
 import ast
 
-
-
 app = Flask(__name__)
 lastID = [-1]
 
@@ -134,6 +132,7 @@ def getNearestStudent():
 
     dimensions = proccessImage((base_address + "frontShot.jpg"), (base_address + "sideShot.jpg"))
 #   dimensions = [100,100,100]
+
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
     return nearestNeigbour(studentList, dimensions)
 
