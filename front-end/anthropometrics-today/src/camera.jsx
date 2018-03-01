@@ -97,20 +97,19 @@ export default class Camera extends React.Component {
             analyseFailed: false,
         });
 
-        var data = new FormData();
-        data.append(
-            'user_photo1', {
-                uri: this.state.photo1,
-                name: 'user_photo1.jpg',
-                type: 'image/jpg'
-            });
+        var data = {
+	"user_photo1": {
+		"uri": this.state.photo1,
+		"name": "user_photo1.jpg",
+		"type": "image/jpg"
+	},
 
-        data.append('user_photo2', {
-            uri: this.state.photo2,
-            name: 'user_photo2.jpg',
-            type: 'image/jpg'
-        }
-        );
+	"user_photo2": {
+		"uri": this.state.photo2,
+		"name": "user_photo2.jpg",
+		"type": "image/jpg"
+	}
+};
 
         analyseImage(this.requestCompleted, data);
     }

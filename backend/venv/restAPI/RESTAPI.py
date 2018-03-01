@@ -1,12 +1,13 @@
 from flask import Flask, request, make_response, abort
 from flask_jsonpify import jsonify
-from restAPI.DataBaseScript import getPersonDataById, getClosestRecordSet, ReturnObjects
-from restAPI.NearestNeigbour import calcNearestNeigbour
-from restAPI.headMeasure import proccessImage
+from DataBaseScript import getPersonDataById, getClosestRecordSet, ReturnObjects
+from NearestNeigbour import calcNearestNeigbour
+from headMeasure import proccessImage
 from datetime import timedelta
 from functools import update_wrapper
+import json
 import base64
-import os
+import ast
 
 app = Flask(__name__)
 lastID = [-1]
@@ -102,17 +103,36 @@ def nearestNeigbour(studentList, node):
                     'Head_length':node[2]})
 
 def base64ToFile(fileName, img_data):
-    with open(fileName, "wb") as fh:
+    with open(fileName, 'wb') as fh:
         fh.write(base64.decodebytes(img_data))
+
+def saveFile(fileName, str_data_noheader):
+    imgdata = base64.b64decode(str_data_noheader)
+    with open(fileName, 'wb') as f:
+        f.write(imgdata)
+
+base_address = '/home/phoebe/AnthropometricsToday/backend/venv/restAPI/'
 
 @app.route('/image_to_student', methods=['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def getNearestStudent():
-    sideShot = request.json['body']['user_photo1']['uri'] #may also need to remove the header from this
-    frontShot = request.json['body']['user_photo1']['uri']
-    base64ToFile("sideShot.jpg", sideShot)
-    base64ToFile("frontShot.jpg", frontShot)
-    dimensions = proccessImage(os.path.abspath("sideShot.png"), os.path.abspath("frontShot.png"))
+    #print(request.get_json()
+    rst = ast.literal_eval(request.get_json())
+    #print(rst['user_photo2']['uri'])
+    sideShot = rst['user_photo1']['uri'] #may also need to remove the header 
+    frontShot = rst['user_photo2']['uri']
+
+    header = 'data:image/jpeg;base64,'
+    lenh = len(header)
+    
+    saveFile('sideShot.jpg', sideShot[lenh:])
+    saveFile('frontShot.jpg', frontShot[lenh:])
+
+    print('saved files')    
+
+    dimensions = proccessImage((base_address + "frontShot.jpg"), (base_address + "sideShot.jpg"))
+#   dimensions = [100,100,100]
+
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
     return nearestNeigbour(studentList, dimensions)
 

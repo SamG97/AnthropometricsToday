@@ -2,7 +2,7 @@ import psycopg2
 import heapq
 
 #Assume we are going to setup a locally hosted database, given that enough space occur in the Rasperry PI
-conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password='tom'")
+conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password='postgres'")
 cur = conn.cursor()
 
 #Some model code for dump purpose
