@@ -134,8 +134,8 @@ WHERE TRUE """
             string1 = string1 + """ AND "Face_iobreadth" > """
             string1 = string1 + str((interocular-delta)*10)
             string1 = string1 + """ ) OR ("Face_iobreadth" is NULL))"""
-        if (facewidth<0):
-            string1 = string1 + """ AND "Face_breadth" < """
+        if (facewidth>0):
+            string1 = string1 + """ AND (("Face_breadth" < """
             string1 = string1 + str((facewidth+delta)*10)
             string1 = string1 + """ AND "Face_breadth" > """
             string1 = string1 + str((facewidth-delta)*10)
@@ -289,6 +289,11 @@ FROM generatedpeople
 #Returns None if nothing found in the database.
 #Should pass unit as cm
 def getClosestRecordSet(headlength, interocular, facewidth):
+    if (not isinstance(headlength,(int,float))
+        or not isinstance(interocular,(int,float))
+        or not isinstance(facewidth,(int,float))):
+        return None
+
     if (headlength <= 0 and interocular <= 0 and facewidth <= 0):
         return None
 
@@ -311,8 +316,8 @@ def getClosestRecordSet(headlength, interocular, facewidth):
             string1 = string1 + """ AND "Face_iobreadth" > """
             string1 = string1 + str(interocular - delta)
             string1 = string1 + """ ) OR ("Face_iobreadth" is NULL))"""
-        if (facewidth < 0):
-            string1 = string1 + """ AND "Face_breadth" < """
+        if (facewidth > 0):
+            string1 = string1 + """ AND (("Face_breadth" < """
             string1 = string1 + str(facewidth + delta)
             string1 = string1 + """ AND "Face_breadth" > """
             string1 = string1 + str(facewidth - delta)
@@ -380,9 +385,14 @@ def getClosestRecordSet(headlength, interocular, facewidth):
 #k=getAllMeasurements()
 #print(k.data)
 
-#k=getClosestRecordSet(21.3,6,13)
+#dimensions = [100, 100, "sdhj"]
+#dimensions = [100, 100, 100]
+#k = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
+#k = getClosestRecordSet(100,100.123214,100)
+#print(k)
 #print(k.data)
 #print(k.get(0))
+#print(getPersonDataById("DROP * TABLES"))
 #print(getPersonDataById(1))
 #print(getPersonDataById(2))
 #print(getPersonDataById(3))
