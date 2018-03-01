@@ -1,6 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
-import { history, analyseImage } from './requests/requestWrappers';
+import { analyseImage, history } from './requests/requestWrappers';
 import { compress } from './utility/urlCompress';
 
 export default class Camera extends React.Component {
@@ -24,18 +24,17 @@ export default class Camera extends React.Component {
 
     setRef = (webcam) => {
         this.webcam = webcam;
-    }
+    };
 
     handleChange(event) {
         this.setState({
             username: event.target.value,
         });
-    }
+    };
 
     capture1 = () => {
         const image = this.webcam.getScreenshot();
 
-        console.log('Username submitted: ' + this.state.username);
         if (this.state.username.length > 50) {
             this.setState({
                 username: '',
@@ -52,7 +51,7 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: false,
         });
-    }
+    };
 
     capture2 = () => {
         const image = this.webcam.getScreenshot();
@@ -65,7 +64,7 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: false,
         });
-    }
+    };
 
     clear1 = () => {
         this.setState({
@@ -77,7 +76,7 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: false,
         });
-    }
+    };
 
     clear2 = () => {
         this.setState({
@@ -89,7 +88,7 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: false,
         });
-    }
+    };
 
     analyse = () => {
         this.setState({
@@ -97,26 +96,27 @@ export default class Camera extends React.Component {
             analyseFailed: false,
         });
 
-        var data = {
-	"user_photo1": {
-		"uri": this.state.photo1,
-		"name": "user_photo1.jpg",
-		"type": "image/jpg"
-	},
+        const data = {
+            user_photo1: {
+                uri: this.state.photo1,
+                name: 'user_photo1.jpg',
+                type: 'image/jpg'
+            },
 
-	"user_photo2": {
-		"uri": this.state.photo2,
-		"name": "user_photo2.jpg",
-		"type": "image/jpg"
-	}
-};
+            user_photo2: {
+                uri: this.state.photo2,
+                name: 'user_photo2.jpg',
+                type: 'image/jpg'
+            },
+        };
 
         analyseImage(this.requestCompleted, data);
-    }
+    };
 
     requestCompleted = (response) => {
-        history.push('/report/' + response.id + "/" + compress(this.state.username, [response.Face_breadth, response.Face_iobreadth, response.Head_length]));
-    }
+        history.push('/report/' + response.id + '/' +
+            compress(this.state.username, [response.Face_breadth, response.Face_iobreadth, response.Head_length]));
+    };
 
     render() {
         if (this.state.analysing) {
@@ -135,7 +135,7 @@ export default class Camera extends React.Component {
                             <h2>Anthropometrics Today</h2>
                             <p className="text-muted">Take a picture from the front.</p>
 
-                            {this.state.photo1 ? <img src={this.state.photo1} alt="from the front" /> : null}
+                            {this.state.photo1 ? <img src={this.state.photo1} alt="from the front"/> : null}
                             <p className="text-muted">This is your picture from the front.</p>
 
                             <div className="container text-center">
@@ -161,17 +161,17 @@ export default class Camera extends React.Component {
                             <h2>Anthropometrics Today</h2>
                             <p className="text-muted">Take a picture from the side.</p>
 
-                            {this.state.photo2 ? <img alt="from the front" src={this.state.photo2} /> : null}
+                            {this.state.photo2 ? <img alt="from the front" src={this.state.photo2}/> : null}
                             <p className="text-muted">This is your picture from the side.</p>
 
                             <div className="container text-center">
                                 <button onClick={this.clear2} className="btn btn-xl btn-light mr-4">
                                     Retake
-                            </button>
+                                </button>
 
                                 <button onClick={this.analyse} className="btn btn-xl btn-dark">
                                     Get Result
-                            </button>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -234,7 +234,8 @@ export default class Camera extends React.Component {
                 <div className="container">
                     <div className="section-heading text-center">
                         <h2>Anthropometrics Today</h2>
-                        <p className="text-muted">Take two pictures respectively of your front and side and get to know your historical twin.</p>
+                        <p className="text-muted">Take two pictures respectively of your front and side and get to know
+                            your historical twin.</p>
 
                         <Webcam
                             audio={false}
@@ -246,7 +247,10 @@ export default class Camera extends React.Component {
                             <form noValidate className={this.state.nameError ? 'nameError' : ''}>
                                 <div className="form-row">
                                     <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                        <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" value={this.state.username} onChange={this.handleChange} required />
+                                        <input className="form-control form-control-lg"
+                                               placeholder="Enter your name here..." type="text" name="usernmae"
+                                               id="username" value={this.state.username} onChange={this.handleChange}
+                                               required/>
                                     </div>
                                     <div className="col-12 col-md-3">
                                         <button onClick={this.capture1} className="btn btn-block btn-lg btn-primary">

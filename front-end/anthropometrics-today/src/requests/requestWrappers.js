@@ -10,9 +10,9 @@ const defaultHandler = (error) => {
 };
 
 const getHistoricData = (id, callback, fail) =>
-        makeRequest(config.baseUrl + config.historicSuffix + '/' + id, callback, fail ? fail : defaultHandler);
+        makeRequest(config.backEndBaseUrl + config.historicSuffix + '/' + id, callback, fail ? fail : defaultHandler);
 
 const analyseImage = (callback, body, fail) =>
-    makeRequest(config.baseUrl + config.analysisSuffix, callback, fail ? fail : defaultHandler, body);
+    makeRequest(config.backEndBaseUrl + config.analysisSuffix, callback, fail ? fail : defaultHandler, body);
 
 export { history, getHistoricData, analyseImage };
