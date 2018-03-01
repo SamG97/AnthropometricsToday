@@ -5,7 +5,11 @@ from NearestNeigbour import calcNearestNeigbour
 from headMeasure import proccessImage
 from datetime import timedelta
 from functools import update_wrapper
+import json
 import base64
+import ast
+
+
 
 app = Flask(__name__)
 lastID = [-1]
@@ -101,21 +105,63 @@ def nearestNeigbour(studentList, node):
                     'Head_length':node[2]})
 
 def base64ToFile(fileName, img_data):
-    with open("imageToSave.png", "wb") as fh:
+    with open(fileName, 'wb') as fh:
         fh.write(base64.decodebytes(img_data))
+
+base_address = '/home/phoebe/AnthropometricsToday/backend/venv/restAPI/'
 
 @app.route('/image_to_student', methods=['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def getNearestStudent():
-    print(request.json)
-    print(request.get_json())
-    print(len(request.form))
-    print("helloooo")
-    sideShot = request.json['body']['user_photo1']['uri'] #may also need to remove the header 
-    frontShot = request.json['body']['user_photo1']['uri']
-    base64ToFile("sideShot.png", sideShot)
-    base64ToFile("frontShot.png", frontShot)
-    dimensions = proccessImage("sideShot.png", "frontShot.png")
+    #print(request.get_json()
+    rst = ast.literal_eval(request.get_json())
+    #print(rst['user_photo2']['uri'])
+    sideShot = rst['user_photo1']['uri'] #may also need to remove the header 
+    frontShot = rst['user_photo2']['uri']
+
+
+    header = 'data:image/jpeg;base64,'
+    lenh = len(header)
+    print(lenh)
+    print('going to print sideshot')
+    print(sideShot[lenh:])
+    print('that was sideshot')
+
+
+
+
+
+
+    imgdata = base64.b64decode(sideShot[lenh:])
+    filename = 'some_image.jpg' 
+    with open(filename, 'wb') as f:
+        f.write(imgdata)
+
+    with open("imageToSave.png", "wb") as fh:
+        fh.write(base64.decodebytes(str.encode(sideShot)))
+
+   with open("imageToSave2.png", "wb") as fh:
+        fh.write(base64.decodebytes(str.encode(sideShot[lenh:])))
+
+
+
+
+
+    b64_sideshot = base64.b64encode(sideShot.encode('utf-8'))
+    b64_frontshot = base64.b64encode(frontShot.encode('utf-8'))
+    
+    print('finished encoding')
+    
+    
+
+    sideshot_noheader = base64.b64encode(sideShot[lenh:].encode('utf-8'))
+
+    base64ToFile('sideShot_2.jpeg', sideshot_noheader)
+    base64ToFile('frontShot_2.jpeg', b64_frontshot)
+
+    print('saved files')    
+
+    dimensions = proccessImage((base_address + "sideShot.jpg"), (base_address + "frontShot.jpg"))
 #   dimensions = [100,100,100]
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
     return nearestNeigbour(studentList, dimensions)
