@@ -131,9 +131,8 @@ def getNearestStudent():
     print('saved files')    
 
     dimensions = proccessImage((base_address + "frontShot.jpg"), (base_address + "sideShot.jpg"))
-#   dimensions = [100,100,100]
 
-    studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
+    studentList = getClosestRecordSet(dimensions[2], dimensions[0], dimensions[1])
     return nearestNeigbour(studentList, dimensions)
 
 if __name__ == '__main__':

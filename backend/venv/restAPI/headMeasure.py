@@ -5,9 +5,9 @@ from skimage.filters import threshold_mean
 cmPerPixel = 0.0458
 
 def proccessImage(front_image_path, profile_image_path):
-    return [getHeadLength(profile_image_path),
+    return [getOcularWidth(front_image_path),
             getFaceWidth(front_image_path),
-            getOcularWidth(front_image_path)]
+            getHeadLength(profile_image_path)]
 
 #can use relative or full file path
 def getOcularWidth(image_path):
