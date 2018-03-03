@@ -67,11 +67,24 @@ In order to run the database correctly, you need to do the following:
    you are an expert of PostgreSQL).
 4. Right click the `group project` database , and click Restore to restore the
    database from the `fake database with fakedata.tar` file provided underneath
-   the dummy database directory (also underneath `backend/venv`) , or you can
+   the dummy database directory (also underneath `backend/
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   `) , or you can
    create a table using the sql query table_generated.sql in the same directory
    and import your own collected data according to the schema if you wish.
 5. Modify the 5th line starting with `conn=` in `DataBaseScript.py` in the
-   `/backend/venv/restAPI/` directory, to match the owner user that you assigned
+   `/backend/restAPI/` directory, to match the owner user that you assigned
    in step 3 and the password that you created in step 2.
 
 ## REST API
@@ -88,7 +101,7 @@ To run the API:
 	- skimage
 	- psycopg2
 	- heapq
-3. Navigate to `AnthropometricsToday/backend/venv/restAPI`
+3. Navigate to `AnthropometricsToday/backend/restAPI`
 4. Run `Python3 RESTAPI.py` to start the server
 
 ## Troubleshooting
