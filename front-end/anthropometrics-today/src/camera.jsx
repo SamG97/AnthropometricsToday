@@ -2,6 +2,7 @@ import React from 'react';
 import Webcam from 'react-webcam';
 import { analyseImage, history } from './requests/requestWrappers';
 import { compress } from './utility/urlCompress';
+import { CameraHeader, FrontPictureHeader, SidePictureHeader, } from './cameraComponents';
 
 export default class Camera extends React.Component {
     constructor(props) {
@@ -35,14 +36,17 @@ export default class Camera extends React.Component {
     capture1 = () => {
         const image = this.webcam.getScreenshot();
 
-        if (this.state.username.length > 50) {
+        if (this.state.username.length === 0 || this.state.username.length > 50) {
             this.setState({
-                username: '',
                 nameError: true,
+                username: '',
             });
+
+            return;
         }
 
         this.setState({
+            nameError: false,
             freeze1: true,
             freeze2: false,
             retake1: false,
@@ -55,6 +59,7 @@ export default class Camera extends React.Component {
 
     capture2 = () => {
         const image = this.webcam.getScreenshot();
+
         this.setState({
             freeze1: false,
             freeze2: true,
@@ -121,7 +126,7 @@ export default class Camera extends React.Component {
     render() {
         if (this.state.analysing) {
             return (
-                <div className="container text-center">
+                <div className="section-heading text-center">
                     <h1>Analysing Photo!</h1>
                 </div>
             );
@@ -129,113 +134,55 @@ export default class Camera extends React.Component {
 
         if (this.state.freeze1) {
             return (
-                <section className="features" id="features">
-                    <div className="container">
-                        <div className="section-heading text-center">
-                            <h2>Anthropometrics Today</h2>
-                            <p className="text-muted">Take a picture from the front.</p>
+                <div className="container">
+                    <div className="section-heading text-center">
+                        <FrontPictureHeader />
 
-                            {this.state.photo1 ? <img src={this.state.photo1} alt="from the front"/> : null}
-                            <p className="text-muted">This is your picture from the front.</p>
+                        {this.state.photo1 ? <img src={this.state.photo1} alt="from the front" /> : null}
+                        <p className="text-muted">This is your picture from the front.</p>
 
-                            <div className="container text-center">
-                                <button onClick={this.clear1} className="btn btn-xl btn-light mr-4">
-                                    Retake
-                                </button>
+                        <div className="container text-center">
+                            <button onClick={this.clear1} className="btn btn-xl btn-light mr-4">
+                                Retake
+                            </button>
 
-                                <button onClick={this.clear2} className="btn btn-xl btn-dark">
-                                    Next Step
-                                </button>
-                            </div>
+                            <button onClick={this.clear2} className="btn btn-xl btn-dark">
+                                Next Step
+                            </button>
                         </div>
                     </div>
-                </section>
+                </div>
             );
         }
 
         if (this.state.freeze2) {
             return (
-                <section className="features" id="features">
-                    <div className="container">
-                        <div className="section-heading text-center">
-                            <h2>Anthropometrics Today</h2>
-                            <p className="text-muted">Take a picture from the side.</p>
+                <div className="container">
+                    <div className="section-heading text-center">
+                        <SidePictureHeader />
 
-                            {this.state.photo2 ? <img alt="from the front" src={this.state.photo2}/> : null}
-                            <p className="text-muted">This is your picture from the side.</p>
+                        {this.state.photo2 ? <img alt="from the front" src={this.state.photo2} /> : null}
+                        <p className="text-muted">This is your picture from the side.</p>
 
-                            <div className="container text-center">
-                                <button onClick={this.clear2} className="btn btn-xl btn-light mr-4">
-                                    Retake
-                                </button>
+                        <div className="container text-center">
+                            <button onClick={this.clear2} className="btn btn-xl btn-light mr-4">
+                                Retake
+                            </button>
 
-                                <button onClick={this.analyse} className="btn btn-xl btn-dark">
-                                    Get Result
-                                </button>
-                            </div>
+                            <button onClick={this.analyse} className="btn btn-xl btn-dark">
+                                Get Result
+                            </button>
                         </div>
                     </div>
-                </section>
+                </div>
             );
         }
 
         if (this.state.retake1) {
             return (
-                <section className="features" id="features">
-                    <div className="container">
-                        <div className="section-heading text-center">
-                            <h2>Anthropometrics Today</h2>
-                            <p className="text-muted">Take a picture from the front.</p>
-
-                            <Webcam
-                                audio={false}
-                                ref={node => this.webcam = node}
-                                screenshotFormat="image/jpeg"
-                            />
-
-                            <div className="container text-center">
-                                <button onClick={this.capture1} className="btn btn-xl btn-light mr-4">
-                                    Capture
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        if (this.state.retake2) {
-            return (
-                <section className="features" id="features">
-                    <div className="container">
-                        <div className="section-heading text-center">
-                            <h2>Anthropometrics Today</h2>
-                            <p className="text-muted">Take a picture from the side.</p>
-
-                            <Webcam
-                                audio={false}
-                                ref={node => this.webcam = node}
-                                screenshotFormat="image/jpeg"
-                            />
-
-                            <div className="container text-center">
-                                <button onClick={this.capture2} className="btn btn-xl btn-light mr-4">
-                                    Capture
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        return (
-            <section className="features" id="features">
                 <div className="container">
                     <div className="section-heading text-center">
-                        <h2>Anthropometrics Today</h2>
-                        <p className="text-muted">Take two pictures respectively of your front and side and get to know
-                            your historical twin.</p>
+                        <FrontPictureHeader />
 
                         <Webcam
                             audio={false}
@@ -243,27 +190,68 @@ export default class Camera extends React.Component {
                             screenshotFormat="image/jpeg"
                         />
 
-                        <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                            <form noValidate className={this.state.nameError ? 'nameError' : ''}>
-                                <div className="form-row">
-                                    <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                        <input className="form-control form-control-lg"
-                                               placeholder="Enter your name here..." type="text" name="usernmae"
-                                               id="username" value={this.state.username} onChange={this.handleChange}
-                                               required/>
-                                    </div>
-                                    <div className="col-12 col-md-3">
-                                        <button onClick={this.capture1} className="btn btn-block btn-lg btn-primary">
-                                            Start!
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div className="container text-center">
+                            <button onClick={this.capture1} className="btn btn-xl btn-light mr-4">
+                                Capture
+                                </button>
                         </div>
-
                     </div>
                 </div>
-            </section>
+            );
+        }
+
+        if (this.state.retake2) {
+            return (
+                <div className="container">
+                    <div className="section-heading text-center">
+                        <SidePictureHeader />
+
+                        <Webcam
+                            audio={false}
+                            ref={node => this.webcam = node}
+                            screenshotFormat="image/jpeg"
+                        />
+
+                        <div className="container text-center">
+                            <button onClick={this.capture2} className="btn btn-xl btn-light mr-4">
+                                Capture
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <div className="container">
+                <div className="section-heading text-center">
+
+                    <CameraHeader />
+
+                    <Webcam
+                        audio={false}
+                        ref={node => this.webcam = node}
+                        screenshotFormat="image/jpeg"
+                    />
+
+                    <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                        <form className={this.state.nameError ? 'nameError' : ''}>
+                            <div className="form-row">
+                                <div className="col-12 col-md-9 mb-2 mb-md-0">
+                                    <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" value={this.state.username} onChange={this.handleChange} required maxlength='50'/>
+                                </div>
+
+                                <div className="col-12 col-md-3">
+                                    <button className="btn btn-block btn-lg btn-primary" onClick={this.capture1} >
+                                        Start!
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
         );
     }
 }
