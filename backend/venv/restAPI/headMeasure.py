@@ -22,7 +22,7 @@ def getOcularWidth(image_path):
         print("Ocular width: default to normal distribution")
         return numpy.random.normal(6, 1)
 
-    ocularWidthOfAllFacesPresent = []
+    ocularWidthOfAllFacesPresent_pixels = []
 
     for face in face_landmarks_list:
         right_eye_points = face.get('right_eye')
@@ -31,9 +31,10 @@ def getOcularWidth(image_path):
         left_avg = get_average_x(left_eye_points)
         right_avg = get_average_x(right_eye_points)
 
-        ocularWidthOfAllFacesPresent += [(right_avg - left_avg) * cmPerPixel]
-    result = max(ocularWidthOfAllFacesPresent)
-    print("measured occular width as: " + str(result))
+        ocularWidthOfAllFacesPresent_pixels += [(right_avg - left_avg)]
+    result = max(ocularWidthOfAllFacesPresent_pixels)*cmPerPixel
+    print("measured occular width as: " + str(result) + " from pixel count " +
+          str(max(ocularWidthOfAllFacesPresent_pixels)))
     return result
 
 #can use relative or full file path
@@ -48,17 +49,18 @@ def getFaceWidth(image_path):
         print("Face width: default to normal distribution")
         return numpy.random.normal(13, 2)
 
-    widthOfAllFacesPresent = []
+    widthOfAllFacesPresent_pixels = []
 
     for face in face_landmarks_list:
         points = face.get('chin')
         x_points = []
         for (x, y) in points:
             x_points += [x]
-        widthOfAllFacesPresent += [(max(x_points) - min(x_points)) * cmPerPixel]
+        widthOfAllFacesPresent_pixels += [(max(x_points) - min(x_points))]
     
-    result = max(widthOfAllFacesPresent)
-    print("measured face width as: " + str(result))
+    result = max(widthOfAllFacesPresent_pixels)*cmPerPixel
+    print("measured face width as: " + str(result) + " from pixel count " +
+          str(max(widthOfAllFacesPresent_pixels)))
     return result
 
 #needs full file path
@@ -78,7 +80,8 @@ def getHeadLength(image_path):
         else:
             current_consecutive_falses += 1
     result = most_consecutive_falses * cmPerPixel
-    print("measured profile length as: " + str(result))
+    print("measured profile length as: " + str(result) + " from pixel count "
+          + str(most_consecutive_falses))
     return result
 
 def getThresholdImage(image_path):
