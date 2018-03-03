@@ -116,11 +116,6 @@ def nearestNeigbour(studentList, node):
                     'Head_length': node[2]})
 
 
-def base64ToFile(fileName, img_data):
-    with open(fileName, 'wb') as fh:
-        fh.write(base64.decodebytes(img_data))
-
-
 def saveFile(fileName, str_data_noheader):
     imgdata = base64.b64decode(str_data_noheader)
     with open(fileName, 'wb') as f:
