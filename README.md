@@ -34,7 +34,7 @@ In order to run the database correctly, you need to do the following:
 ## REST API
 To run the API:
 1. Install Python 3
-2. Install packages:
+2. Install Python packages using pip:
 	- flask
 	- flask_jsonpify
 	- datetime
