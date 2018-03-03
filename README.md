@@ -45,5 +45,5 @@ To run the API:
 	- skimage
 	- psycopg2
 	- heapq
-3. Navigate to AnthropometricsToday/backend/venv/restAPI
+3. Navigate to `AnthropometricsToday/backend/venv/restAPI`
 4. run `Python3 RESTAPI.py` to start the server
