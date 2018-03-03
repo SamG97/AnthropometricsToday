@@ -46,4 +46,4 @@ To run the API:
 	- psycopg2
 	- heapq
 3. Navigate to AnthropometricsToday/backend/venv/restAPI
-4. run Python3 RESTAPI.py
+4. run `Python3 RESTAPI.py` to start the server
