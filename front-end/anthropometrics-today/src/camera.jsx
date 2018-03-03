@@ -36,14 +36,17 @@ export default class Camera extends React.Component {
     capture1 = () => {
         const image = this.webcam.getScreenshot();
 
-        if (this.state.username.length > 50) {
+        if (this.state.username.length === 0 || this.state.username.length > 50) {
             this.setState({
-                username: '',
                 nameError: true,
+                username: '',
             });
+
+            return;
         }
 
         this.setState({
+            nameError: false,
             freeze1: true,
             freeze2: false,
             retake1: false,
@@ -56,6 +59,7 @@ export default class Camera extends React.Component {
 
     capture2 = () => {
         const image = this.webcam.getScreenshot();
+
         this.setState({
             freeze1: false,
             freeze2: true,
@@ -231,10 +235,10 @@ export default class Camera extends React.Component {
                     />
 
                     <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                        <form noValidate className={this.state.nameError ? 'nameError' : ''}>
+                        <form className={this.state.nameError ? 'nameError' : ''}>
                             <div className="form-row">
                                 <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                    <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" value={this.state.username} onChange={this.handleChange} required />
+                                    <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" value={this.state.username} onChange={this.handleChange} required maxlength='50'/>
                                 </div>
 
                                 <div className="col-12 col-md-3">
