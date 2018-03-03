@@ -1,6 +1,7 @@
 import face_recognition
 from skimage import data, color
 from skimage.filters import threshold_mean
+import numpy
 
 cmPerPixel = 0.0458
 
@@ -18,8 +19,8 @@ def getOcularWidth(image_path):
 
     if len(face_landmarks_list) == 0:
         # No face detected
-        # TODO: discuss what to do here
-        return 0
+        print("Ocular width: default to normal distribution")
+        return numpy.random.normal(6, 1)
 
     ocularWidthOfAllFacesPresent = []
 
@@ -44,8 +45,8 @@ def getFaceWidth(image_path):
 
     if len(face_landmarks_list) == 0:
         # No face detected
-        # TODO: discuss what to do here
-        return 0
+        print("Face width: default to normal distribution")
+        return numpy.random.normal(13, 2)
 
     widthOfAllFacesPresent = []
 
@@ -100,10 +101,13 @@ def get_average_x(points):
 
 def mini_test():
     front = "../../../" \
-            "PhoebeExperimentalHeadmeasureScripts/images/" \
+            "old_files/PhoebeExperimentalHeadmeasureScripts/images/" \
             "phoebe_face_glasses.jpg"
-    profile = "/Users/phoebenichols/AnthropometricsToday/" \
+    profile = "/Users/phoebenichols/AnthropometricsToday/old_files/" \
             "PhoebeExperimentalHeadmeasureScripts/images/" \
             "phoebe_profile_centered.jpg"
 
     print(proccessImage(front, profile))
+
+
+mini_test()

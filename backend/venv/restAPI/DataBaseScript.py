@@ -2,7 +2,7 @@ import psycopg2
 import heapq
 
 #Change the following line to match your owner of this database and your password.
-conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password=''")
+conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password='postgres'")
 cur = conn.cursor()
 
 #Some model code for dump purpose
