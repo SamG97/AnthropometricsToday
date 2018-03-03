@@ -21,7 +21,7 @@ The home page for this site is the page to take a camera image. You can access r
 navigating to /reports/{user}/{twin} where {user} and {twin} are the user and twin info
 to pass to the report page. All other URLs will send you to a 404 page.
 
-## Back End
+## Database
 In order to run the database correctly, you need to do the following:
 1. Install <a href="https://www.postgresql.org/download/">PostgreSQL</a>. (make sure that pgAdmin is included in your release)
 2. During the installation, the program will ask you to create a password for the superuser 'postgres', either remember it or just write it down if you like. (￣３￣)a
@@ -30,3 +30,20 @@ In order to run the database correctly, you need to do the following:
 5. (Only do this if you want to set it up for local test, otherwise go to step 6) Delete the password requirement to access this database, by editing the **"pg_hba.conf"** under the data directory of your installed PostgreSQL directory. You need to replace every 'md5' with 'trust' in this file. In the 5th line starting with 'conn=' in **"DataBaseScript.py"** in the /backend/venv/restAPI/ directory, you should empty the password field, and then setup the user to match the owner that you set in step 3. Then go to 7.
 6. (Do this if you want to run this server publicly) Modify the 5th line starting with 'conn=' in **"DataBaseScript.py"** in the /backend/venv/restAPI/ directory, to match the owner user that you assigned in step 3 and the password that you created in step 2. Then go to 7.
 7. Enjoy  (´・ω・)ﾉ
+
+## REST API
+To run the API:
+1. Install Python 3
+2. Install packages:
+	- flask
+	- flask_jsonpify
+	- datetime
+	- functools
+	- ast
+	- numpy
+	- face_recognition
+	- skimage
+	- psycopg2
+	- heapq
+3. Navigate to AnthropometricsToday/backend/venv/restAPI
+4. run Python3 RESTAPI.py
