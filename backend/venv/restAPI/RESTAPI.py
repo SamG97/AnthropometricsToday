@@ -5,7 +5,6 @@ from NearestNeigbour import calcNearestNeigbour
 from headMeasure import proccessImage
 from datetime import timedelta
 from functools import update_wrapper
-import json
 import base64
 import ast
 
