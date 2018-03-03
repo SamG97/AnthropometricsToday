@@ -238,7 +238,7 @@ export default class Camera extends React.Component {
                         <form className={this.state.nameError ? 'nameError' : ''}>
                             <div className="form-row">
                                 <div className="col-12 col-md-9 mb-2 mb-md-0">
-                                    <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" value={this.state.username} onChange={this.handleChange} required maxlength='50'/>
+                                    <input className="form-control form-control-lg" placeholder="Enter your name here..." type="text" name="usernmae" id="username" value={this.state.username} onChange={this.handleChange} required maxLength='50'/>
                                 </div>
 
                                 <div className="col-12 col-md-3">
