@@ -13,11 +13,16 @@ def discardNone(a):
             b.append(a[i])
     return b
 
+
 studentList = getAllMeasurements()
-students = [{studentList.getall()[j][i][0]: studentList.getall()[j][i][1] for i in range(len(studentList.getall()[j]))}
-           for j in range(len(studentList.getall()))]
-alldists = np.array(discardNone([[students[i]['Face_iobreadth'], students[i]['Face_breadth'], students[i]['Head_length']] for i in
-        range(len(students))]))
+students = [
+    {studentList.getall()[j][i][0]: studentList.getall()[j][i][1] for i in
+     range(len(studentList.getall()[j]))}
+    for j in range(len(studentList.getall()))]
+alldists = np.array(discardNone([[students[i]['Face_iobreadth'],
+                                  students[i]['Face_breadth'],
+                                  students[i]['Head_length']] for i in
+                                 range(len(students))]))
 
 elipseMatrix = np.cov(alldists, rowvar=False)
 
@@ -26,31 +31,38 @@ try:
 except:
     elipseMatrix = np.identity(len(elipseMatrix))
 
+
 def calcDist(a, b):
-    ab = b-a
-    return np.sqrt(np.dot(np.dot(np.transpose(ab),elipseMatrix), ab))
+    ab = b - a
+    return np.sqrt(np.dot(np.dot(np.transpose(ab), elipseMatrix), ab))
+
 
 def sigmoid(x):
-    return np.exp(x)/(1+np.exp(x))
+    return np.exp(x) / (1 + np.exp(x))
+
 
 def getIndex(dists):
     sum = 0
     for i in range(len(dists)):
         sum += dists[i]
-    probs = [dists[i]/sum for i in range(len(dists))]
-    return np.random.choice(range(len(dists)), 1,  p = list(probs))[0]
+    probs = [dists[i] / sum for i in range(len(dists))]
+    return np.random.choice(range(len(dists)), 1, p=list(probs))[0]
+
 
 def calcNearestNeigbour(node, points):
     if len(points) == 0:
-       return None
+        return None
     point = np.array(node)
     points = discardNone(points)
     dists = [calcDist(np.array(points[i]), point) for i in range(len(points))]
     return getIndex(dists)
 
+
 if __name__ == '__main__':
-    #tests
+    # tests
     print(elipseMatrix)
-    print(calcDist(np.array([0,0,0]), np.array([1,2,3])))
-    print(getIndex([100,300,500,2000,0.1,2000]))
-    print(calcNearestNeigbour([2,4,5],[[1,4,5],[2,3,2],[2,2,2],[4,2,3],[1,1,1]]))
+    print(calcDist(np.array([0, 0, 0]), np.array([1, 2, 3])))
+    print(getIndex([100, 300, 500, 2000, 0.1, 2000]))
+    print(calcNearestNeigbour([2, 4, 5],
+                              [[1, 4, 5], [2, 3, 2], [2, 2, 2], [4, 2, 3],
+                               [1, 1, 1]]))

@@ -3,14 +3,17 @@ from skimage import data, color
 from skimage.filters import threshold_mean
 import numpy
 
+# Change for callibration to a different camera
 cmPerPixel = 0.0458
+
 
 def proccessImage(front_image_path, profile_image_path):
     return [getOcularWidth(front_image_path),
             getFaceWidth(front_image_path),
             getHeadLength(profile_image_path)]
 
-#can use relative or full file path
+
+# Can use relative or full file path
 def getOcularWidth(image_path):
     image = face_recognition \
         .load_image_file(image_path)
@@ -32,12 +35,13 @@ def getOcularWidth(image_path):
         right_avg = get_average_x(right_eye_points)
 
         ocularWidthOfAllFacesPresent_pixels += [(right_avg - left_avg)]
-    result = max(ocularWidthOfAllFacesPresent_pixels)*cmPerPixel
+    result = max(ocularWidthOfAllFacesPresent_pixels) * cmPerPixel
     print("measured occular width as: " + str(result) + " from pixel count " +
           str(max(ocularWidthOfAllFacesPresent_pixels)))
     return result
 
-#can use relative or full file path
+
+# can use relative or full file path
 def getFaceWidth(image_path):
     image = face_recognition \
         .load_image_file(image_path)
@@ -57,13 +61,14 @@ def getFaceWidth(image_path):
         for (x, y) in points:
             x_points += [x]
         widthOfAllFacesPresent_pixels += [(max(x_points) - min(x_points))]
-    
-    result = max(widthOfAllFacesPresent_pixels)*cmPerPixel
+
+    result = max(widthOfAllFacesPresent_pixels) * cmPerPixel
     print("measured face width as: " + str(result) + " from pixel count " +
           str(max(widthOfAllFacesPresent_pixels)))
     return result
 
-#needs full file path
+
+# needs full file path
 def getHeadLength(image_path):
     binary = getThresholdImage(image_path)
     mid_point = len(binary) // 2
@@ -84,6 +89,7 @@ def getHeadLength(image_path):
           + str(most_consecutive_falses))
     return result
 
+
 def getThresholdImage(image_path):
     color_input = data.load(image_path)
     image = color.rgb2grey(color_input)
@@ -92,6 +98,7 @@ def getThresholdImage(image_path):
     binary = image > thresh
 
     return binary
+
 
 def get_average_x(points):
     average_x = 0.0
@@ -102,12 +109,13 @@ def get_average_x(points):
     average_x = average_x / len(points)
     return average_x
 
+
 def mini_test():
     front = "../../../" \
             "old_files/PhoebeExperimentalHeadmeasureScripts/images/" \
             "phoebe_face_glasses.jpg"
     profile = "/Users/phoebenichols/AnthropometricsToday/old_files/" \
-            "PhoebeExperimentalHeadmeasureScripts/images/" \
-            "phoebe_profile_centered.jpg"
+              "PhoebeExperimentalHeadmeasureScripts/images/" \
+              "phoebe_profile_centered.jpg"
 
     print(proccessImage(front, profile))
