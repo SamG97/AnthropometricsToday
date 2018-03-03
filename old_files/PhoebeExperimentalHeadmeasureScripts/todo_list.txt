@@ -1,6 +1,0 @@
-Collect data from the same camera and calibrate. Test performance of measurement
-functions on this dataset.
-
-Move code in getHeadMeasurements.py into an object, not just a dodgy script
-
-Write unit tests for getHeadMeasurements.py
