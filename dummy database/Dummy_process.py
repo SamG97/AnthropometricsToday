@@ -1,7 +1,7 @@
 import psycopg2
 import heapq
 
-#Assume we are going to setup a locally hosted database, given that enough space occur in the Rasperry PI
+#Change the following line to match your owner of this database and your password.
 conn = psycopg2.connect("dbname='group project' user='postgres' host='localhost' password=''")
 cur = conn.cursor()
 
@@ -368,9 +368,8 @@ def getClosestRecordSet(headlength, interocular, facewidth):
         return None
     return result
 
+#unit test: The following is emitted if not needed
 
-
-#unit test: emitted if not needed
 #k=getClosestRecordSet(21.3,2.8,16)
 #print(k.data)
 #print(k.get(0))
@@ -381,10 +380,8 @@ def getClosestRecordSet(headlength, interocular, facewidth):
 #print(getPersonDataByIdOld(1,'old'))
 #print(getPersonDataByIdOld(2,'old'))
 #print(getPersonDataByIdOld(3,'old'))
-
 #k=getAllMeasurements()
 #print(k.data)
-
 #dimensions = [100, 100, "sdhj"]
 #dimensions = [100, 100, 100]
 #k = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
