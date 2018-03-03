@@ -111,6 +111,3 @@ def mini_test():
             "phoebe_profile_centered.jpg"
 
     print(proccessImage(front, profile))
-
-
-mini_test()
