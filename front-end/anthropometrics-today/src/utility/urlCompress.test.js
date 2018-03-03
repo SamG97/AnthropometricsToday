@@ -152,6 +152,10 @@ describe('urlCompress', () => {
             expect(uncompress('John_Smith&&')).toEqual(['John Smith']);
         });
 
+        it('handles input with no name', () => {
+            expect(uncompress('&&B7AM')).toEqual(['', 12.3, 1.2]);
+        });
+
         it('rejects input with no separator symbols', () => {
             expect(uncompress('John_Smith')).toBe(null);
         });

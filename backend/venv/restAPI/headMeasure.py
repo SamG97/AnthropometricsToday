@@ -1,15 +1,19 @@
 import face_recognition
 from skimage import data, color
 from skimage.filters import threshold_mean
+import numpy
 
+# Change for callibration to a different camera
 cmPerPixel = 0.0458
 
-def proccessImage(front_image_path, profile_image_path):
-    return [getHeadLength(profile_image_path),
-            getFaceWidth(front_image_path),
-            getOcularWidth(front_image_path)]
 
-#can use relative or full file path
+def proccessImage(front_image_path, profile_image_path):
+    return [getOcularWidth(front_image_path),
+            getFaceWidth(front_image_path),
+            getHeadLength(profile_image_path)]
+
+
+# Can use relative or full file path
 def getOcularWidth(image_path):
     image = face_recognition \
         .load_image_file(image_path)
@@ -18,10 +22,10 @@ def getOcularWidth(image_path):
 
     if len(face_landmarks_list) == 0:
         # No face detected
-        # TODO: discuss what to do here
-        return 0
+        print("Ocular width: default to normal distribution")
+        return numpy.random.normal(6, 1)
 
-    ocularWidthOfAllFacesPresent = []
+    ocularWidthOfAllFacesPresent_pixels = []
 
     for face in face_landmarks_list:
         right_eye_points = face.get('right_eye')
@@ -30,11 +34,14 @@ def getOcularWidth(image_path):
         left_avg = get_average_x(left_eye_points)
         right_avg = get_average_x(right_eye_points)
 
-        ocularWidthOfAllFacesPresent += [(right_avg - left_avg) * cmPerPixel]
+        ocularWidthOfAllFacesPresent_pixels += [(right_avg - left_avg)]
+    result = max(ocularWidthOfAllFacesPresent_pixels) * cmPerPixel
+    print("measured occular width as: " + str(result) + " from pixel count " +
+          str(max(ocularWidthOfAllFacesPresent_pixels)))
+    return result
 
-    return max(ocularWidthOfAllFacesPresent)
 
-#can use relative or full file path
+# can use relative or full file path
 def getFaceWidth(image_path):
     image = face_recognition \
         .load_image_file(image_path)
@@ -43,21 +50,25 @@ def getFaceWidth(image_path):
 
     if len(face_landmarks_list) == 0:
         # No face detected
-        # TODO: discuss what to do here
-        return 0
+        print("Face width: default to normal distribution")
+        return numpy.random.normal(13, 2)
 
-    widthOfAllFacesPresent = []
+    widthOfAllFacesPresent_pixels = []
 
     for face in face_landmarks_list:
         points = face.get('chin')
         x_points = []
         for (x, y) in points:
             x_points += [x]
-        widthOfAllFacesPresent += [(max(x_points) - min(x_points)) * cmPerPixel]
+        widthOfAllFacesPresent_pixels += [(max(x_points) - min(x_points))]
 
-    return max(widthOfAllFacesPresent)
+    result = max(widthOfAllFacesPresent_pixels) * cmPerPixel
+    print("measured face width as: " + str(result) + " from pixel count " +
+          str(max(widthOfAllFacesPresent_pixels)))
+    return result
 
-#needs full file path
+
+# needs full file path
 def getHeadLength(image_path):
     binary = getThresholdImage(image_path)
     mid_point = len(binary) // 2
@@ -73,7 +84,11 @@ def getHeadLength(image_path):
             current_consecutive_falses = 0
         else:
             current_consecutive_falses += 1
-    return most_consecutive_falses * cmPerPixel
+    result = most_consecutive_falses * cmPerPixel
+    print("measured profile length as: " + str(result) + " from pixel count "
+          + str(most_consecutive_falses))
+    return result
+
 
 def getThresholdImage(image_path):
     color_input = data.load(image_path)
@@ -84,6 +99,7 @@ def getThresholdImage(image_path):
 
     return binary
 
+
 def get_average_x(points):
     average_x = 0.0
 
@@ -93,12 +109,13 @@ def get_average_x(points):
     average_x = average_x / len(points)
     return average_x
 
+
 def mini_test():
     front = "../../../" \
-            "PhoebeExperimentalHeadmeasureScripts/images/" \
+            "old_files/PhoebeExperimentalHeadmeasureScripts/images/" \
             "phoebe_face_glasses.jpg"
-    profile = "/Users/phoebenichols/AnthropometricsToday/" \
-            "PhoebeExperimentalHeadmeasureScripts/images/" \
-            "phoebe_profile_centered.jpg"
+    profile = "/Users/phoebenichols/AnthropometricsToday/old_files/" \
+              "PhoebeExperimentalHeadmeasureScripts/images/" \
+              "phoebe_profile_centered.jpg"
 
     print(proccessImage(front, profile))

@@ -9,10 +9,10 @@ const makeRequest = (url, callback, errCallback, body) => {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
-            body: body,
+            body: JSON.stringify(JSON.stringify(body)),
         });
     }
     promise.then((response) => {
