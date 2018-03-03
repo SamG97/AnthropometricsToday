@@ -115,10 +115,8 @@ base_address = '/home/phoebe/AnthropometricsToday/backend/venv/restAPI/'
 @app.route('/image_to_student', methods=['POST', 'OPTIONS'])
 @crossdomain(origin='*')
 def getNearestStudent():
-    #print(request.get_json()
     rst = ast.literal_eval(request.get_json())
-    #print(rst['user_photo2']['uri'])
-    sideShot = rst['user_photo1']['uri'] #may also need to remove the header 
+    sideShot = rst['user_photo1']['uri']
     frontShot = rst['user_photo2']['uri']
 
     header = 'data:image/jpeg;base64,'
@@ -127,9 +125,8 @@ def getNearestStudent():
     saveFile('sideShot.jpg', sideShot[lenh:])
     saveFile('frontShot.jpg', frontShot[lenh:])
 
-    print('saved files')    
-
-    dimensions = proccessImage((base_address + "frontShot.jpg"), (base_address + "sideShot.jpg"))
+    dimensions = proccessImage((base_address + "frontShot.jpg"),
+                               (base_address + "sideShot.jpg"))
 
     studentList = getClosestRecordSet(dimensions[2], dimensions[0], dimensions[1])
     return nearestNeigbour(studentList, dimensions)
