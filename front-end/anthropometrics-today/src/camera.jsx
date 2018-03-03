@@ -53,6 +53,8 @@ export default class Camera extends React.Component {
             analysing: false,
             analyseFailed: false,
         });
+
+        console.log(image);
     }
 
     capture2 = () => {

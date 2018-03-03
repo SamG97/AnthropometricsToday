@@ -6,6 +6,7 @@ from restAPI.headMeasure import proccessImage
 from datetime import timedelta
 from functools import update_wrapper
 import base64
+import os
 
 app = Flask(__name__)
 lastID = [-1]
@@ -101,7 +102,7 @@ def nearestNeigbour(studentList, node):
                     'Head_length':node[2]})
 
 def base64ToFile(fileName, img_data):
-    with open("imageToSave.png", "wb") as fh:
+    with open(fileName, "wb") as fh:
         fh.write(base64.decodebytes(img_data))
 
 @app.route('/image_to_student', methods=['POST', 'OPTIONS'])
@@ -109,10 +110,9 @@ def base64ToFile(fileName, img_data):
 def getNearestStudent():
     sideShot = request.json['body']['user_photo1']['uri'] #may also need to remove the header from this
     frontShot = request.json['body']['user_photo1']['uri']
-    base64ToFile("sideShot.png", sideShot)
-    base64ToFile("frontShot.png", frontShot)
-    dimensions = proccessImage("sideShot.png", "frontShot.png")
-#   dimensions = [100,100,100]
+    base64ToFile("sideShot.jpg", sideShot)
+    base64ToFile("frontShot.jpg", frontShot)
+    dimensions = proccessImage(os.path.abspath("sideShot.png"), os.path.abspath("frontShot.png"))
     studentList = getClosestRecordSet(dimensions[0], dimensions[1], dimensions[2])
     return nearestNeigbour(studentList, dimensions)
 
