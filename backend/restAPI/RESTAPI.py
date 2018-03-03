@@ -12,7 +12,7 @@ app = Flask(__name__)
 lastID = [-1]
 
 # Needed for fully qualified file paths to images
-base_address = '/home/phoebe/AnthropometricsToday/backend/venv/restAPI/'
+base_address = '/home/phoebe/AnthropometricsToday/backend/restAPI/'
 
 
 def crossdomain(origin=None, methods=None, headers=None, max_age=21600,
