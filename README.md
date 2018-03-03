@@ -40,7 +40,7 @@ changes.
 ### Production Server
 If you want to run the server in a production environment for other users to
 access, you need to host it on a web server. This will show you how to
-configure the server on Apache2
+configure the server on Apache2.
 1. Follow steps 1-7 if not done so already for setting up the development
    server (changing the addresses for the web server if necessary)
 2. Install `apache2`
