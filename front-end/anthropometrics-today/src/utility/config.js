@@ -1,6 +1,6 @@
 const config = {
     backEndBaseUrl: 'http://localhost:5002',
-    webBaseUrl: 'http://localhost:3000',
+    webBaseUrl: 'http://localhost',
 
     historicSuffix: '/student',
     analysisSuffix: '/image_to_student',
