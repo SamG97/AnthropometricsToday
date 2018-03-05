@@ -142,7 +142,7 @@ export default class Report extends React.Component {
                     </div>
                     <div className="row">
                         <div className="intro col-12">
-                            Your historical twin is {this.twin['Name']}! <br/>
+                            Your historical twin is {this.state.twinMeasurements['Name']}! <br/>
                             Find out more about them and how you compare in your report below!
                         </div>
                     </div>
